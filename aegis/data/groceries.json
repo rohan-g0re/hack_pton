@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "name": "milk",
+      "expected_count": 1,
+      "threshold": 1,
+      "knot_match_hint": "milk",
+      "external_id": null
+    },
+    {
+      "name": "bread",
+      "expected_count": 1,
+      "threshold": 1,
+      "knot_match_hint": "bread",
+      "external_id": null
+    },
+    {
+      "name": "apple",
+      "expected_count": 6,
+      "threshold": 2,
+      "knot_match_hint": "apple",
+      "external_id": null
+    },
+    {
+      "name": "banana",
+      "expected_count": 5,
+      "threshold": 2,
+      "knot_match_hint": "banana",
+      "external_id": null
+    },
+    {
+      "name": "eggs",
+      "expected_count": 1,
+      "threshold": 1,
+      "knot_match_hint": "eggs",
+      "external_id": null
+    },
+    {
+      "name": "orange_juice",
+      "expected_count": 1,
+      "threshold": 1,
+      "knot_match_hint": "orange juice",
+      "external_id": null
+    }
+  ]
+}

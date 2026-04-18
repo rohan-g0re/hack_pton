@@ -1,0 +1,120 @@
+[
+  {
+    "id": "1776498187487-x5qznj",
+    "domain": "system",
+    "type": "system_startup",
+    "message": "Aegis scheduler started",
+    "timestamp": "2026-04-18T07:43:07.487Z"
+  },
+  {
+    "id": "1776498200655-zfjdcz",
+    "domain": "emergency",
+    "type": "emergency_detected",
+    "message": "⚠️ ALERT: Possible fall detected (manual demo trigger). [3:43:20 AM]",
+    "timestamp": "2026-04-18T07:43:20.655Z",
+    "metadata": {
+      "manual": true
+    }
+  },
+  {
+    "id": "1776498200657-o3wvxe",
+    "domain": "emergency",
+    "type": "emergency_alert_sent",
+    "message": "Manual demo alert sent",
+    "timestamp": "2026-04-18T07:43:20.657Z"
+  },
+  {
+    "id": "1776498243099-me8mo3",
+    "domain": "emergency",
+    "type": "emergency_detected",
+    "message": "⚠️ ALERT: Possible fall detected (manual demo trigger). [3:44:03 AM]",
+    "timestamp": "2026-04-18T07:44:03.099Z",
+    "metadata": {
+      "manual": true
+    }
+  },
+  {
+    "id": "1776498243101-56ucri",
+    "domain": "emergency",
+    "type": "emergency_alert_sent",
+    "message": "Manual demo alert sent",
+    "timestamp": "2026-04-18T07:44:03.101Z"
+  },
+  {
+    "id": "1776498481015-rpkb22",
+    "domain": "system",
+    "type": "system_startup",
+    "message": "Aegis scheduler started",
+    "timestamp": "2026-04-18T07:48:01.015Z"
+  },
+  {
+    "id": "1776498487360-d9jv34",
+    "domain": "emergency",
+    "type": "emergency_detected",
+    "message": "⚠️ ALERT: Possible fall detected (manual demo trigger). [3:48:07 AM]",
+    "timestamp": "2026-04-18T07:48:07.360Z",
+    "metadata": {
+      "manual": true
+    }
+  },
+  {
+    "id": "1776498487367-5l4zjv",
+    "domain": "emergency",
+    "type": "emergency_alert_sent",
+    "message": "Manual demo alert sent",
+    "timestamp": "2026-04-18T07:48:07.367Z"
+  },
+  {
+    "id": "1776521382632-rmu4d7",
+    "domain": "system",
+    "type": "system_startup",
+    "message": "Aegis scheduler started",
+    "timestamp": "2026-04-18T14:09:42.632Z"
+  },
+  {
+    "id": "1776522278861-enp27p",
+    "domain": "system",
+    "type": "system_startup",
+    "message": "Aegis scheduler started",
+    "timestamp": "2026-04-18T14:24:38.861Z"
+  },
+  {
+    "id": "1776522414521-m83avm",
+    "domain": "system",
+    "type": "system_startup",
+    "message": "Aegis scheduler started",
+    "timestamp": "2026-04-18T14:26:54.521Z"
+  },
+  {
+    "id": "1776522503187-n386sk",
+    "domain": "system",
+    "type": "system_startup",
+    "message": "Aegis scheduler started",
+    "timestamp": "2026-04-18T14:28:23.187Z"
+  },
+  {
+    "id": "1776522766794-v1f19i",
+    "domain": "system",
+    "type": "system_startup",
+    "message": "Aegis scheduler started",
+    "timestamp": "2026-04-18T14:32:46.794Z"
+  },
+  {
+    "id": "1776522960289-qc7ely",
+    "domain": "system",
+    "type": "system_startup",
+    "message": "Aegis scheduler started",
+    "timestamp": "2026-04-18T14:36:00.290Z"
+  },
+  {
+    "id": "1776528005577-98nazo",
+    "domain": "medical",
+    "type": "med_reminder_played",
+    "message": "Reminder: Lisinopril 10mg",
+    "timestamp": "2026-04-18T16:00:05.577Z",
+    "metadata": {
+      "medication": "Lisinopril 10mg",
+      "instructions": "Take with lunch"
+    }
+  }
+]
