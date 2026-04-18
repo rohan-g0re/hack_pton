@@ -1,0 +1,74 @@
+# --- Dependencies ---
+node_modules/
+
+# --- Package manager caches ---
+.npm-cache/
+.pnpm-store/
+.yarn/
+.pnp.*
+
+# --- Build / output ---
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+coverage/
+*.tsbuildinfo
+
+# --- Environment & secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Logs & runtime ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+*.pid
+*.seed
+*.pid.lock
+
+# --- OS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Editor & IDE (local) ---
+.idea/
+*.swp
+*.swo
+*~
+
+# VS Code — keep shared settings optional; ignore local
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Cursor — hook/agent local state (never commit)
+.cursor/hooks/state/
+
+# --- Tooling / workspace artifacts ---
+.compound-engineering/
+.turbo/
+.vercel/
+.netlify/
+
+# --- Test / misc ---
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+*.pem
+.playwright-mcp/

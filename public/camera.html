@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nanny Cam</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="camera-shell">
+      <header class="camera-header">
+        <div>
+          <p class="eyebrow">Browser Camera Page</p>
+          <h1 id="camera-title">Nanny Cam</h1>
+          <p id="camera-subtitle" class="muted"></p>
+        </div>
+        <a class="button button-secondary" href="/">Back to dashboard</a>
+      </header>
+
+      <main class="camera-layout">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Device Registration</h2>
+            <span id="camera-role-badge" class="status-pill"></span>
+          </div>
+          <form id="register-form" class="stack gap-md">
+            <label>
+              Device name
+              <input name="deviceName" type="text" placeholder="Kitchen iPhone" required />
+            </label>
+            <button class="button" type="submit">Register this device</button>
+          </form>
+          <p id="register-result" class="muted"></p>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Live Preview</h2>
+            <span class="status-pill status-live">Browser first</span>
+          </div>
+          <video id="video-preview" autoplay muted playsinline class="camera-preview"></video>
+          <p class="muted">
+            If the browser blocks camera access, the page still works in demo mode using scene presets below.
+          </p>
+        </section>
+
+        <section class="panel wide">
+          <div class="panel-heading">
+            <h2>Demo Scene</h2>
+            <span class="status-pill">Structured snapshot</span>
+          </div>
+          <label>
+            Select scenario
+            <select id="scene-select"></select>
+          </label>
+          <p id="scene-description" class="muted"></p>
+          <div class="camera-actions">
+            <button id="send-snapshot" class="button">Send snapshot now</button>
+            <button id="toggle-auto" class="button button-secondary">Start 10s auto mode</button>
+          </div>
+          <pre id="snapshot-result" class="result-box"></pre>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/camera.js"></script>
+  </body>
+</html>
