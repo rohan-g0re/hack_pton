@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting…</title>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const role = params.get("role") === "medicine" ? "medicine" : "pantry";
+      window.location.replace("/camera/" + role);
+    </script>
+    <meta http-equiv="refresh" content="0;url=/camera/pantry" />
+  </head>
+  <body>
+    <p><a href="/camera/pantry">Continue to pantry cam</a></p>
+  </body>
+</html>
