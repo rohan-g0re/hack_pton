@@ -12,12 +12,18 @@ function json(response, statusCode, payload) {
   response.end(JSON.stringify(payload));
 }
 
+const MAX_BODY_BYTES = 1024 * 1024;
+
 function readBody(request) {
   return new Promise((resolve, reject) => {
     let body = "";
 
     request.on("data", (chunk) => {
       body += chunk;
+      if (body.length > MAX_BODY_BYTES) {
+        reject(new Error("Payload too large."));
+        request.destroy();
+      }
     });
 
     request.on("end", () => {
@@ -37,12 +43,35 @@ function readBody(request) {
   });
 }
 
+const HTML_ROUTES = {
+  "/": "/index.html",
+  "/register": "/register.html",
+  "/dashboard": "/dashboard.html",
+  "/dashboard/patient": "/patient.html",
+  "/bind": "/bind.html",
+  "/camera": "/camera-select.html",
+  "/camera/pantry": "/camera-room.html",
+  "/camera/medicine": "/camera-room.html"
+};
+
+function mapHtmlRoute(pathname) {
+  if (HTML_ROUTES[pathname]) {
+    return HTML_ROUTES[pathname];
+  }
+
+  if (/^\/dashboard\/proposals\/[^/]+\/?$/.test(pathname)) {
+    return "/proposal-detail.html";
+  }
+
+  return pathname;
+}
+
 function sendStatic(requestPath, response) {
   const safePath = requestPath === "/" ? "/index.html" : requestPath;
   const filePath = path.join(publicDir, safePath);
   const normalized = path.normalize(filePath);
 
-  if (!normalized.startsWith(publicDir)) {
+  if (!normalized.startsWith(publicDir + path.sep) && normalized !== publicDir) {
     response.writeHead(403);
     response.end("Forbidden");
     return;
@@ -131,16 +160,44 @@ export function createApp() {
         return;
       }
 
-      if (
-        request.method === "GET" &&
-        (pathname === "/" ||
-          pathname.startsWith("/camera") ||
-          pathname.endsWith(".html") ||
-          pathname.endsWith(".js") ||
-          pathname.endsWith(".css"))
-      ) {
-        sendStatic(pathname, response);
+      if (request.method === "POST" && pathname === "/api/cameras/bind-skip") {
+        const body = await readBody(request);
+        const role = body.role === "medicine" ? "medicine" : "pantry";
+        json(response, 200, store.skipBindForDemo(role, body));
         return;
+      }
+
+      if (request.method === "POST" && pathname === "/api/cameras/pair-code") {
+        const body = await readBody(request);
+        const role = body.role === "medicine" ? "medicine" : "pantry";
+        json(response, 200, store.generatePairingCode(role));
+        return;
+      }
+
+      if (request.method === "POST" && pathname === "/api/cameras/pair") {
+        const body = await readBody(request);
+        json(response, 200, store.pairCamera(body.code));
+        return;
+      }
+
+      if (request.method === "POST" && pathname === "/api/payment-card") {
+        const body = await readBody(request);
+        json(response, 200, store.updatePaymentCardDemo(body));
+        return;
+      }
+
+      if (request.method === "GET" && !pathname.startsWith("/api")) {
+        const staticPath = mapHtmlRoute(pathname);
+        const allowed =
+          staticPath.endsWith(".html") ||
+          staticPath.endsWith(".js") ||
+          staticPath.endsWith(".css") ||
+          staticPath === "/";
+
+        if (allowed) {
+          sendStatic(staticPath === "/" ? "/" : staticPath, response);
+          return;
+        }
       }
 
       response.writeHead(404);

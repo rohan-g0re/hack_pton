@@ -8,88 +8,32 @@
   </head>
   <body>
     <div class="page-shell">
-      <header class="hero">
-        <div>
-          <p class="eyebrow">Hack Princeton 2026</p>
-          <h1>Caretaker Command Center</h1>
-          <p class="hero-copy">
-            Monitor pantry health, medication adherence, and the full human-in-the-loop grocery workflow from one dashboard.
-          </p>
-        </div>
-        <div class="hero-actions">
-          <button id="reset-demo" class="button button-secondary">Reset Demo</button>
-          <a class="button" href="/camera.html?role=pantry">Open Pantry Cam</a>
-          <a class="button" href="/camera.html?role=medicine">Open Medicine Cam</a>
-        </div>
+      <header class="welcome-header">
+        <p class="eyebrow">Hack Princeton 2026</p>
+        <h1>Caretaker Command Center</h1>
+        <p class="welcome-subtitle">
+          Remote pantry monitoring and medication adherence for elderly family members.
+        </p>
       </header>
 
-      <main class="grid">
-        <section class="panel">
-          <div class="panel-heading">
-            <h2>Light Signup</h2>
-            <span class="status-pill">Demo access</span>
-          </div>
-          <form id="profile-form" class="stack gap-md">
-            <label>
-              Caretaker name
-              <input name="caretakerName" type="text" required />
-            </label>
-            <label>
-              Caretaker phone
-              <input name="phone" type="text" required />
-            </label>
-            <label>
-              Patient name
-              <input name="patientName" type="text" required />
-            </label>
-            <button class="button" type="submit">Save setup</button>
-          </form>
-        </section>
+      <div class="role-grid">
+        <a class="role-card" href="/register">
+          <span class="role-card-icon" aria-hidden="true">◆</span>
+          <h2>I'm the Caretaker</h2>
+          <p>Monitor your patient's pantry and medication from anywhere.</p>
+          <span class="button role-card-cta">Get Started →</span>
+        </a>
+        <a class="role-card" href="/camera">
+          <span class="role-card-icon" aria-hidden="true">◎</span>
+          <h2>This device is a Nanny Cam</h2>
+          <p>Set up this phone or laptop as a pantry or medicine camera.</p>
+          <span class="button role-card-cta">Set Up Cam →</span>
+        </a>
+      </div>
 
-        <section class="panel">
-          <div class="panel-heading">
-            <h2>Camera Status</h2>
-            <span id="live-indicator" class="status-pill status-live">Polling</span>
-          </div>
-          <div id="camera-status" class="stack"></div>
-        </section>
-
-        <section class="panel wide">
-          <div class="panel-heading">
-            <h2>Pantry Inventory</h2>
-            <span class="status-pill">Caretaker editable</span>
-          </div>
-          <form id="inventory-form" class="stack gap-sm"></form>
-          <button id="save-inventory" class="button">Save inventory</button>
-        </section>
-
-        <section class="panel wide">
-          <div class="panel-heading">
-            <h2>Medication Schedule</h2>
-            <span class="status-pill">Due-now demo window</span>
-          </div>
-          <form id="prescription-form" class="stack gap-sm"></form>
-          <button id="save-prescriptions" class="button">Save prescription</button>
-        </section>
-
-        <section class="panel wide">
-          <div class="panel-heading">
-            <h2>Purchase Proposals</h2>
-            <span class="status-pill">Approval required</span>
-          </div>
-          <div id="proposal-list" class="stack"></div>
-        </section>
-
-        <section class="panel wide">
-          <div class="panel-heading">
-            <h2>Notification Feed</h2>
-            <span class="status-pill">Photon + dashboard</span>
-          </div>
-          <div id="event-list" class="stack"></div>
-        </section>
-      </main>
+      <p class="tech-strip">
+        Built with Gemini ER 1.6 · Knot API · Photon · Supabase · AWS
+      </p>
     </div>
-
-    <script type="module" src="/app.js"></script>
   </body>
 </html>

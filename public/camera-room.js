@@ -1,5 +1,8 @@
-const params = new URLSearchParams(window.location.search);
-const role = params.get("role") === "medicine" ? "medicine" : "pantry";
+import { request } from "/common.js";
+
+const pathRole = window.location.pathname.endsWith("medicine") ? "medicine" : "pantry";
+const role = pathRole;
+
 const title = document.getElementById("camera-title");
 const subtitle = document.getElementById("camera-subtitle");
 const badge = document.getElementById("camera-role-badge");
@@ -7,27 +10,20 @@ const select = document.getElementById("scene-select");
 const description = document.getElementById("scene-description");
 const result = document.getElementById("snapshot-result");
 const registerResult = document.getElementById("register-result");
+const snapCountEl = document.getElementById("snap-count");
+const lastSentEl = document.getElementById("last-sent");
+const autoBadge = document.getElementById("auto-badge");
+
 let scenes = [];
 let autoTimer = null;
+let snapshotsSent = 0;
 
 title.textContent = role === "pantry" ? "Pantry Nanny Cam" : "Medicine Nanny Cam";
 subtitle.textContent =
   role === "pantry"
-    ? "Use this page on a phone or laptop in front of the pantry."
-    : "Use this page on a phone or laptop pointed at the medicine table.";
+    ? "Capturing snapshots every 10 seconds. Place this device facing the pantry."
+    : "Capturing snapshots every 10 seconds. Point at the medicine table.";
 badge.textContent = role;
-
-async function request(path, options = {}) {
-  const response = await fetch(path, {
-    headers: { "Content-Type": "application/json" },
-    ...options
-  });
-  const payload = await response.json();
-  if (!response.ok) {
-    throw new Error(payload.error || "Request failed");
-  }
-  return payload;
-}
 
 function renderSceneDescription() {
   const scene = scenes.find((entry) => entry.id === select.value);
@@ -57,13 +53,19 @@ async function sendSnapshot() {
       capturedAt: new Date().toISOString()
     })
   });
+  snapshotsSent += 1;
+  snapCountEl.textContent = `Snapshots sent: ${snapshotsSent}`;
+  lastSentEl.textContent = `Last sent: ${new Date().toLocaleTimeString()}`;
   result.textContent = JSON.stringify(payload, null, 2);
 }
 
 async function startPreview() {
   const video = document.getElementById("video-preview");
   if (!navigator.mediaDevices?.getUserMedia) {
-    video.replaceWith(document.createTextNode("Camera preview unavailable in this browser."));
+    const note = document.createElement("p");
+    note.className = "muted";
+    note.textContent = "Camera preview unavailable in this browser.";
+    video.replaceWith(note);
     return;
   }
 
@@ -93,12 +95,14 @@ document.getElementById("toggle-auto").addEventListener("click", async (event) =
     clearInterval(autoTimer);
     autoTimer = null;
     event.currentTarget.textContent = "Start 10s auto mode";
+    autoBadge.textContent = "Auto off";
     return;
   }
 
   await sendSnapshot();
   autoTimer = setInterval(sendSnapshot, 10000);
   event.currentTarget.textContent = "Stop auto mode";
+  autoBadge.textContent = "Active · every 10s";
 });
 
 select.addEventListener("change", renderSceneDescription);

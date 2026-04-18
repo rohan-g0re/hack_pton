@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Settings — Caretaker Command Center</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <a class="back-link" href="/dashboard">← Back to Dashboard</a>
+
+      <header class="page-title-block">
+        <h1 id="patient-title">Patient settings</h1>
+      </header>
+
+      <section class="panel wide">
+        <div class="panel-heading">
+          <h2>Pantry inventory</h2>
+        </div>
+        <p class="muted section-lead">What groceries should the patient have?</p>
+        <div id="inventory-rows" class="stack gap-sm"></div>
+        <div class="settings-actions">
+          <button type="button" class="button button-secondary" id="add-inventory">+ Add Item</button>
+          <button type="button" class="button" id="save-inventory">Save Inventory</button>
+        </div>
+      </section>
+
+      <section class="panel wide">
+        <div class="panel-heading">
+          <h2>Medication schedule</h2>
+        </div>
+        <p class="muted section-lead">What medicines should the patient take?</p>
+        <div id="prescription-rows" class="stack gap-sm"></div>
+        <div class="settings-actions">
+          <button type="button" class="button button-secondary" id="add-prescription">+ Add Medication</button>
+          <button type="button" class="button" id="save-prescriptions">Save Prescriptions</button>
+        </div>
+      </section>
+
+      <section class="panel wide">
+        <div class="panel-heading">
+          <h2>Payment card</h2>
+        </div>
+        <p class="muted section-lead">Card used for grocery orders via Knot.</p>
+        <div id="card-summary" class="card knot-placeholder"></div>
+        <button type="button" class="button" id="update-card">Update Card (demo)</button>
+        <p class="form-hint">
+          Production: Knot Vaulting SDK embed. This demo updates masked demo card metadata only.
+        </p>
+      </section>
+    </div>
+
+    <script type="module" src="/patient.js"></script>
+  </body>
+</html>

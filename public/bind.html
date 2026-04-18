@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bind Camera — Caretaker Command Center</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell narrow">
+      <header class="page-title-block">
+        <h1>Bind This Camera</h1>
+        <p class="muted">
+          Show this code (or QR) to the caretaker. They scan or type it on their dashboard to connect this camera.
+        </p>
+      </header>
+
+      <section class="panel bind-panel">
+        <p class="muted">Pairing code</p>
+        <p id="pair-code" class="pair-code">······</p>
+        <p class="muted pair-help">
+          On the caretaker dashboard, paste this code into <em>Pair a nanny cam</em>.
+        </p>
+
+        <details class="bind-qr-details">
+          <summary>Show QR instead</summary>
+          <div id="qr-wrap" class="qr-wrap"></div>
+        </details>
+
+        <p id="bind-role" class="muted"></p>
+        <p id="bind-status" class="bind-status">Status: Waiting for caretaker to pair…</p>
+        <div class="stack gap-sm">
+          <button type="button" class="button" id="skip-bind">Skip for Demo →</button>
+          <p class="form-hint">Bypasses pairing and auto-binds for hackathon judging.</p>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="/bind.js"></script>
+  </body>
+</html>

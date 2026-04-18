@@ -24,11 +24,41 @@ test("dashboard state exposes seeded caretaker and patient", async () => {
   });
 });
 
-test("dashboard shell is served as HTML", async () => {
+test("welcome shell is served as HTML", async () => {
   await withServer(async (baseUrl) => {
     const response = await fetch(`${baseUrl}/`);
     const text = await response.text();
     assert.match(text, /Caretaker Command Center/);
+  });
+});
+
+test("registration and dashboard routes serve HTML", async () => {
+  await withServer(async (baseUrl) => {
+    const registerResponse = await fetch(`${baseUrl}/register`);
+    const registerText = await registerResponse.text();
+    assert.match(registerText, /Register as Caretaker/);
+
+    const dashboardResponse = await fetch(`${baseUrl}/dashboard`);
+    const dashboardText = await dashboardResponse.text();
+    assert.match(dashboardText, /Caretaker Command Center/);
+  });
+});
+
+test("demo bind-skip marks camera online", async () => {
+  await withServer(async (baseUrl) => {
+    const response = await fetch(`${baseUrl}/api/cameras/bind-skip`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ role: "pantry" })
+    });
+    const payload = await response.json();
+    assert.equal(payload.role, "pantry");
+    assert.ok(payload.deviceName);
+
+    const stateResponse = await fetch(`${baseUrl}/api/state`);
+    const state = await stateResponse.json();
+    const pantry = state.cameras.find((camera) => camera.role === "pantry");
+    assert.equal(pantry.status, "online");
   });
 });
 
@@ -73,6 +103,34 @@ test("approving a proposal completes sandbox checkout", async () => {
   });
 });
 
+test("pairing code binds the camera and is single-use", async () => {
+  await withServer(async (baseUrl) => {
+    const codeResponse = await fetch(`${baseUrl}/api/cameras/pair-code`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ role: "medicine" })
+    });
+    const { code } = await codeResponse.json();
+    assert.match(code, /^\d{6}$/);
+
+    const pairResponse = await fetch(`${baseUrl}/api/cameras/pair`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code })
+    });
+    const camera = await pairResponse.json();
+    assert.equal(camera.role, "medicine");
+    assert.equal(camera.status, "online");
+
+    const replayResponse = await fetch(`${baseUrl}/api/cameras/pair`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code })
+    });
+    assert.equal(replayResponse.status, 400);
+  });
+});
+
 test("missed medication snapshot generates a critical caretaker alert", async () => {
   await withServer(async (baseUrl) => {
     const response = await fetch(`${baseUrl}/api/cameras/medicine/snapshot`, {
@@ -82,7 +140,7 @@ test("missed medication snapshot generates a critical caretaker alert", async ()
     });
 
     const payload = await response.json();
-    assert.equal(payload.status, "alert");
+    assert.equal(payload.status, "missed");
     assert.equal(payload.event.severity, "critical");
     assert.equal(payload.notification.deliveryStatus, "sent");
   });

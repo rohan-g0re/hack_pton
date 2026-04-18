@@ -5,6 +5,12 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "test": "node tests/app.test.mjs"
+    "test": "node --test tests/app.test.mjs tests/gemini-pantry.test.mjs tests/gemini-medicine.test.mjs tests/knot-checkout.test.mjs tests/notifier.test.mjs tests/schema.test.mjs tests/worker-orchestration.test.mjs",
+    "worker": "node services/worker/index.mjs",
+    "notifier": "node services/notifier/server.mjs"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.49.1"
   }
 }

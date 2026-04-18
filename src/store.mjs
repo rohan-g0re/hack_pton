@@ -49,6 +49,46 @@ export class DemoStore {
 
   reset() {
     this.state = createSeedState();
+    this.pairingCodes = new Map();
+  }
+
+  generatePairingCode(role) {
+    const camera = this.getCamera(role);
+    if (!camera) {
+      throw new Error(`Unknown camera role: ${role}`);
+    }
+
+    for (const [existing, entry] of this.pairingCodes) {
+      if (entry.role === role || entry.expiresAt < Date.now()) {
+        this.pairingCodes.delete(existing);
+      }
+    }
+
+    let code;
+    do {
+      code = String(Math.floor(100000 + Math.random() * 900000));
+    } while (this.pairingCodes.has(code));
+
+    const expiresAt = Date.now() + 10 * 60 * 1000;
+    this.pairingCodes.set(code, { role, expiresAt });
+    return { code, role, expiresAt: new Date(expiresAt).toISOString() };
+  }
+
+  pairCamera(code) {
+    const normalized = String(code || "").replace(/\D/g, "");
+    const entry = this.pairingCodes.get(normalized);
+
+    if (!entry) {
+      throw new Error("Pairing code not recognized.");
+    }
+
+    if (entry.expiresAt < Date.now()) {
+      this.pairingCodes.delete(normalized);
+      throw new Error("Pairing code expired.");
+    }
+
+    this.pairingCodes.delete(normalized);
+    return this.skipBindForDemo(entry.role, { deviceName: `${entry.role === "pantry" ? "Kitchen" : "Medicine"} device` });
   }
 
   getScene(role, sceneId) {
@@ -78,6 +118,9 @@ export class DemoStore {
     if (payload.patientName) {
       this.state.patient.name = String(payload.patientName);
     }
+    if (payload.relationship) {
+      this.state.patient.relationship = String(payload.relationship);
+    }
 
     this.pushEvent({
       type: "profile",
@@ -93,8 +136,8 @@ export class DemoStore {
     this.state.inventory = items.map((item, index) => ({
       id: item.id || `inv-${index + 1}`,
       name: String(item.name),
-      targetQuantity: Number(item.targetQuantity),
-      lowStockThreshold: Number(item.lowStockThreshold),
+      targetQuantity: Number(item.targetQuantity) || 0,
+      lowStockThreshold: Number(item.lowStockThreshold) || 0,
       preferredMerchant: String(item.preferredMerchant || "Walmart")
     }));
 
@@ -112,9 +155,9 @@ export class DemoStore {
     this.state.prescriptions = items.map((item, index) => ({
       id: item.id || `rx-${index + 1}`,
       medicineName: String(item.medicineName),
-      expectedCount: Number(item.expectedCount),
+      expectedCount: Number(item.expectedCount) || 1,
       scheduledTime: String(item.scheduledTime),
-      windowMinutes: Number(item.windowMinutes),
+      windowMinutes: Number(item.windowMinutes) || 30,
       purpose: String(item.purpose || "")
     }));
 
@@ -146,6 +189,50 @@ export class DemoStore {
     });
 
     return clone(camera);
+  }
+
+  skipBindForDemo(role, payload = {}) {
+    const camera = this.getCamera(role);
+    if (!camera) {
+      throw new Error(`Unknown camera role: ${role}`);
+    }
+
+    const deviceName = payload.deviceName || `${role === "pantry" ? "Kitchen" : "Medicine"} device`;
+    camera.deviceName = String(deviceName);
+    camera.lastSeenAt = nowIso();
+    camera.status = "online";
+    camera.bindToken = makeId("bind");
+
+    this.pushEvent({
+      type: "camera",
+      severity: "info",
+      title: `${camera.label} bound`,
+      message: "Demo bind completed. This camera is now linked to the caretaker dashboard."
+    });
+
+    return clone(camera);
+  }
+
+  updatePaymentCardDemo(payload) {
+    if (payload.brand) {
+      this.state.paymentCard.brand = String(payload.brand);
+    }
+    if (payload.last4) {
+      const digits = String(payload.last4).replace(/\D/g, "").slice(-4);
+      this.state.paymentCard.last4 = digits || this.state.paymentCard.last4;
+    }
+    if (payload.status) {
+      this.state.paymentCard.status = String(payload.status);
+    }
+
+    this.pushEvent({
+      type: "checkout",
+      severity: "info",
+      title: "Payment card updated",
+      message: "Demo card on file was refreshed (Knot vaulting placeholder)."
+    });
+
+    return this.listState();
   }
 
   recordSnapshot(role, payload) {
@@ -235,8 +322,14 @@ export class DemoStore {
         return false;
       }
 
-      const currentSignature = proposal.items.map((item) => `${item.name}:${item.reorderQuantity}`).join("|");
-      const nextSignature = analysis.lowItems.map((item) => `${item.name}:${item.reorderQuantity}`).join("|");
+      const sortKey = (arr) =>
+        arr
+          .slice()
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((item) => `${item.name}:${item.reorderQuantity}`)
+          .join("|");
+      const currentSignature = sortKey(proposal.items);
+      const nextSignature = sortKey(analysis.lowItems);
       return currentSignature === nextSignature;
     });
 
@@ -266,6 +359,9 @@ export class DemoStore {
     const proposal = this.state.proposals.find((item) => item.id === id);
     if (!proposal) {
       throw new Error("Proposal not found.");
+    }
+    if (!["awaiting_approval", "review"].includes(proposal.status)) {
+      throw new Error("Proposal cannot be approved in its current state.");
     }
 
     proposal.status = "approved";
@@ -297,6 +393,9 @@ export class DemoStore {
     const proposal = this.state.proposals.find((item) => item.id === id);
     if (!proposal) {
       throw new Error("Proposal not found.");
+    }
+    if (!["awaiting_approval", "review"].includes(proposal.status)) {
+      throw new Error("Proposal cannot be rejected in its current state.");
     }
 
     proposal.status = "rejected";
@@ -355,7 +454,7 @@ export class DemoStore {
       message = unknownMedicine
         ? "An unexpected medicine appears to have been taken. Please check on the patient."
         : "Scheduled medicines were missed or taken incorrectly. Please check on the patient.";
-      adherenceStatus = "alert";
+      adherenceStatus = unknownMedicine ? "wrong_pill" : "missed";
     }
 
     const event = this.pushEvent({
@@ -365,17 +464,19 @@ export class DemoStore {
       message
     });
 
-    const notification = {
-      id: makeId("notify"),
-      channel: "Photon iMessage",
-      deliveryStatus: "sent",
-      relatedEventId: event.id,
-      recipient: this.state.caretaker.phone,
-      sentAt: nowIso(),
-      message
-    };
-
-    this.state.notifications.unshift(notification);
+    let notification = null;
+    if (adherenceStatus !== "outside_window") {
+      notification = {
+        id: makeId("notify"),
+        channel: "Photon iMessage",
+        deliveryStatus: "sent",
+        relatedEventId: event.id,
+        recipient: this.state.caretaker.phone,
+        sentAt: nowIso(),
+        message
+      };
+      this.state.notifications.unshift(notification);
+    }
 
     return {
       status: adherenceStatus,

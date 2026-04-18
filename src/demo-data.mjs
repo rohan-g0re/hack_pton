@@ -6,6 +6,11 @@ function hhmmFrom(date) {
   return date.toTimeString().slice(0, 5);
 }
 
+/** Scene catalog for demo / worker simulation (same data as seeded dashboard). */
+export function getSeedScenes() {
+  return createSeedState().scenes;
+}
+
 export function createSeedState() {
   const now = new Date();
   const scheduled = new Date(now.getTime());
@@ -23,7 +28,12 @@ export function createSeedState() {
     patient: {
       id: "patient-1",
       name: "Mira Shah",
-      ageLabel: "Grandmother"
+      relationship: "Grandmother"
+    },
+    paymentCard: {
+      brand: "VISA",
+      last4: "4242",
+      status: "active"
     },
     cameras: [
       {
