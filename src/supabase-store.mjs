@@ -1,6 +1,6 @@
 /**
- * Supabase-backed store — mirrors DemoStore API for the HTTP demo server.
- * Uses fixed seed UUIDs from supabase/seed.sql when present.
+ * Supabase-backed store.
+ * Uses fixed seed UUIDs from supabase/seed.sql.
  */
 import { createSeedState } from "./demo-data.mjs";
 
@@ -242,7 +242,7 @@ export class SupabaseStore {
       patient_id: SEED_PATIENT_ID,
       type: "system",
       severity: "info",
-      title: "Demo reset",
+      title: "Data reset",
       message: "State cleared and pantry schedule re-seeded from defaults."
     });
     return this.listState();
@@ -436,7 +436,7 @@ export class SupabaseStore {
     return this.registerCamera(row.role, { deviceName });
   }
 
-  async updatePaymentCardDemo(payload) {
+  async updatePaymentCard(payload) {
     await this.client.from("payment_cards").delete().eq("patient_id", SEED_PATIENT_ID);
     await this.client.from("payment_cards").insert({
       patient_id: SEED_PATIENT_ID,
@@ -449,7 +449,7 @@ export class SupabaseStore {
       type: "checkout",
       severity: "info",
       title: "Payment card updated",
-      message: "Demo card on file was refreshed (Knot vaulting placeholder)."
+      message: "Payment card on file was updated."
     });
     return this.listState();
   }

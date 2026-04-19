@@ -132,16 +132,8 @@ document.getElementById("save-prescriptions").addEventListener("click", async ()
   await hydrate();
 });
 
-document.getElementById("update-card").addEventListener("click", async () => {
-  const last4 = window.prompt("Demo: enter last 4 digits for the vaulted card", "4242");
-  if (!last4) {
-    return;
-  }
-  const data = await request("/api/payment-card", {
-    method: "POST",
-    body: JSON.stringify({ last4, brand: "VISA", status: "active" })
-  });
-  renderCardSummary(data.paymentCard);
+document.getElementById("update-card").addEventListener("click", () => {
+  alert("Card vaulting requires Knot SDK integration. Contact your administrator to update the payment card.");
 });
 
 hydrate().catch((error) => {

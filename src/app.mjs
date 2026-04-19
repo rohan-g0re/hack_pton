@@ -224,7 +224,7 @@ export function createApp() {
 
       if (request.method === "POST" && pathname === "/api/payment-card") {
         const body = await readBody(request);
-        json(response, 200, await invokeStore(store, "updatePaymentCardDemo", body));
+        json(response, 200, await invokeStore(store, "updatePaymentCard", body));
         return;
       }
 

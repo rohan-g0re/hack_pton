@@ -1,5 +1,5 @@
 /**
- * Knot Shopping API client — sandbox success when credentials are absent (hackathon demo).
+ * Knot Shopping API client.
  * @see https://docs.knotapi.com/shopping/quickstart
  */
 export async function knotPlaceOrder({ items, cardToken, merchant = "Walmart" }) {
@@ -7,13 +7,7 @@ export async function knotPlaceOrder({ items, cardToken, merchant = "Walmart" })
   const secret = process.env.KNOT_CLIENT_SECRET;
 
   if (!clientId || !secret) {
-    return {
-      ok: true,
-      sandbox: true,
-      knot_session_id: `knot-sandbox-${Date.now()}`,
-      merchant,
-      items
-    };
+    throw new Error("Knot API credentials not configured. Set KNOT_CLIENT_ID and KNOT_CLIENT_SECRET.");
   }
 
   const response = await fetch(`${process.env.KNOT_API_BASE || "https://api.knotapi.com"}/shopping/checkout`, {
