@@ -45,6 +45,18 @@ module.exports = {
         NODE_ENV: "production",
         ...envVars
       }
+    },
+    {
+      name: "caretaker-photon-agent",
+      script: "services/photon/agent.ts",
+      interpreter: "bun",
+      instances: 1,
+      autorestart: true,
+      max_memory_restart: "200M",
+      env: {
+        NODE_ENV: "production",
+        ...envVars
+      }
     }
   ]
 };

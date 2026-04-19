@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "test": "node --test tests/app.test.mjs tests/gemini-pantry.test.mjs tests/gemini-medicine.test.mjs tests/knot-checkout.test.mjs tests/notifier.test.mjs tests/schema.test.mjs tests/worker-orchestration.test.mjs",
+    "prove:knot": "node scripts/prove-knot-session.mjs",
+    "test": "node --test tests/app.test.mjs tests/gemini-pantry.test.mjs tests/gemini-medicine.test.mjs tests/knot-checkout.test.mjs tests/notifier.test.mjs tests/schema.test.mjs tests/worker-orchestration.test.mjs tests/photon-config.test.mjs tests/photon-outbox.test.mjs tests/photon-command-router.test.mjs",
     "worker": "node services/worker/index.mjs",
     "notifier": "node services/notifier/server.mjs",
+    "photon:agent": "bun services/photon/agent.ts",
+    "photon:smoke": "bun scripts/smoke-photon.ts",
     "seed:supabase": "node scripts/seed-supabase.mjs"
   },
   "dependencies": {

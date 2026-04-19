@@ -1,29 +1,28 @@
 import http from "node:http";
 import { createSupabaseServerClient } from "../../src/supabase-server.mjs";
-import { sendIMessage } from "./photon-client.mjs";
+import { enqueueAlert } from "../photon/outbox.mjs";
+import { normalizePhone } from "../photon/config.mjs";
 
 const port = Number(process.env.PHOTON_HTTP_PORT || process.env.NOTIFIER_PORT || 3040);
+const bindHost = process.env.NOTIFIER_BIND_HOST || "127.0.0.1";
+const MAX_BODY_BYTES = 64 * 1024; // 64 KB — alert payloads are small
 
 function readBody(request) {
   return new Promise((resolve, reject) => {
     let body = "";
     request.on("data", (c) => {
       body += c;
+      if (body.length > MAX_BODY_BYTES) {
+        reject(new Error("Request body too large."));
+        request.socket.destroy();
+      }
     });
     request.on("end", () => {
-      try {
-        resolve(body ? JSON.parse(body) : {});
-      } catch (error) {
-        reject(error);
-      }
+      try { resolve(body ? JSON.parse(body) : {}); }
+      catch (error) { reject(error); }
     });
     request.on("error", reject);
   });
-}
-
-function isE164ish(phone) {
-  const normalized = String(phone).replace(/[\s-]/g, "");
-  return /^\+[1-9]\d{6,14}$/.test(normalized);
 }
 
 const server = http.createServer(async (req, res) => {
@@ -39,44 +38,54 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  const contentType = req.headers["content-type"] || "";
+  if (!contentType.includes("application/json")) {
+    res.writeHead(415, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Content-Type must be application/json." }));
+    return;
+  }
+
   try {
     const payload = await readBody(req);
     const rawPhone = payload.caretaker_phone || payload.to;
-    const message = payload.message || "";
+    const message = String(payload.message || "").trim();
     const eventId = payload.event_id || null;
 
-    if (!rawPhone || !isE164ish(rawPhone)) {
+    const normalizedPhone = normalizePhone(rawPhone);
+    if (!normalizedPhone) {
       res.writeHead(400, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ error: "Invalid caretaker_phone" }));
+      res.end(JSON.stringify({ error: "Invalid caretaker_phone — must be a valid E.164 number (e.g. +16095550100)." }));
       return;
     }
 
-    const phone = String(rawPhone).replace(/[\s-]/g, "");
-    const result = await sendIMessage({ toPhone: phone, body: message });
-
-    const client = createSupabaseServerClient();
-    if (client && eventId) {
-      const existing = await client.from("notifications").select("id").eq("event_id", eventId).maybeSingle();
-      if (!existing.data) {
-        await client.from("notifications").insert({
-          event_id: eventId,
-          channel: "photon_imessage",
-          recipient: phone,
-          message,
-          delivery_status: result.ok ? "sent" : "failed",
-          sent_at: new Date().toISOString()
-        });
-      }
+    if (!message) {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "message is required and must not be empty." }));
+      return;
     }
 
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ ok: true, delivery: result }));
+    const client = createSupabaseServerClient();
+    if (!client) {
+      res.writeHead(503, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Database service unavailable. Please try again later." }));
+      return;
+    }
+
+    const result = await enqueueAlert(client, {
+      phone: normalizedPhone,
+      message,
+      eventId
+    });
+
+    res.writeHead(202, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ ok: true, queued: true, ...result }));
   } catch (error) {
+    console.error("[notifier] /notify error:", error.message || error);
     res.writeHead(500, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: String(error.message || error) }));
+    res.end(JSON.stringify({ error: "An internal error occurred." }));
   }
 });
 
-server.listen(port, () => {
-  console.log(`Caretaker notifier listening on http://127.0.0.1:${port}`);
+server.listen(port, bindHost, () => {
+  console.log(`Caretaker notifier listening on http://${bindHost}:${port}`);
 });

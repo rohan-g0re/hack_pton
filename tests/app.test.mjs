@@ -150,3 +150,26 @@ test("missed medication snapshot generates a critical caretaker alert", async ()
     assert.equal(payload.notification.deliveryStatus, "sent");
   });
 });
+
+test(
+  "integration: /api/state includes caretaker photon readiness fields (requires SUPABASE_URL)",
+  { skip: !process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY },
+  async () => {
+    // This test validates that the new photon readiness fields are included in the state response.
+    // Requires a live Supabase instance with migration 004 applied.
+    const { createApp } = await import("../src/app.mjs");
+    const { server } = createApp();
+    await new Promise((resolve) => server.listen(0, resolve));
+    const { port } = server.address();
+    try {
+      const response = await fetch(`http://127.0.0.1:${port}/api/state`);
+      const data = await response.json();
+      assert.ok("photonStatus" in data.caretaker, "caretaker should have photonStatus");
+      assert.ok("photonLastError" in data.caretaker, "caretaker should have photonLastError");
+      assert.ok(Array.isArray(data.notifications), "state should include notifications array");
+      assert.ok(Array.isArray(data.events), "state should include events array");
+    } finally {
+      await new Promise((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));
+    }
+  }
+);

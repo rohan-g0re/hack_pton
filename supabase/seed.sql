@@ -3,11 +3,13 @@
 
 begin;
 
-insert into public.caretakers (id, name, phone)
+insert into public.caretakers (id, name, phone, email, photon_status)
 values (
   '11111111-1111-4111-8111-111111111101'::uuid,
   'Rohan Shah',
-  '+1 609-555-0144'
+  '+1 609-555-0144',
+  '',
+  'not_configured'
 )
 on conflict (id) do nothing;
 
