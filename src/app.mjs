@@ -5,6 +5,19 @@ import url from "node:url";
 import { SupabaseStore } from "./supabase-store.mjs";
 import { createSupabaseServerClient } from "./supabase-server.mjs";
 import { createSnapshotPutUrl } from "./s3-presign.mjs";
+import {
+  createKnotSession,
+  extendKnotSession,
+  MERCHANTS
+} from "../services/worker/knot-client.mjs";
+import {
+  handleCartSyncSucceeded,
+  handleCartSyncFailed,
+  handleCheckoutSucceeded,
+  handleCheckoutFailed,
+  handleMerchantAuthenticated,
+  handleAccountLoginRequired
+} from "../services/worker/knot-checkout.mjs";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const publicDir = path.resolve(__dirname, "../public");
@@ -15,6 +28,20 @@ function json(response, statusCode, payload) {
 }
 
 const MAX_BODY_BYTES = 1024 * 1024;
+
+function readRawBody(request) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    request.on("data", chunk => {
+      chunks.push(chunk);
+      if (chunks.reduce((n, c) => n + c.length, 0) > MAX_BODY_BYTES) {
+        reject(new Error("Payload too large.")); request.destroy();
+      }
+    });
+    request.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    request.on("error", reject);
+  });
+}
 
 function readBody(request) {
   return new Promise((resolve, reject) => {
@@ -224,9 +251,88 @@ export function createApp() {
 
       if (request.method === "POST" && pathname === "/api/payment-card") {
         const body = await readBody(request);
-        json(response, 200, await invokeStore(store, "updatePaymentCardDemo", body));
+        json(response, 200, await invokeStore(store, "updatePaymentCard", body));
         return;
       }
+
+      // ── Knot API routes ────────────────────────────────────────────────────
+
+      if (request.method === "GET" && pathname === "/api/knot/merchants") {
+        // Return our curated merchant catalog — no live API call needed for UI display
+        json(response, 200, { merchants: Object.values(MERCHANTS) });
+        return;
+      }
+
+      if (request.method === "POST" && pathname === "/api/knot/session") {
+        const body = await readBody(request);
+        const patientId = "22222222-2222-4222-8222-222222222202";
+        const externalUserId = `patient:${patientId}`;
+        const merchantId = Number(body.merchantId || process.env.KNOT_DEFAULT_MERCHANT_ID || 44);
+        const { session: sessionId, sessionType } = await createKnotSession({
+          externalUserId,
+          merchantId,
+          patientId
+        });
+        json(response, 200, {
+          sessionId,
+          sessionType,
+          clientId: process.env.KNOT_WEB_CLIENT_ID || process.env.KNOT_CLIENT_ID,
+          environment: process.env.KNOT_ENVIRONMENT || "production",
+          merchantIds: [merchantId]
+        });
+        return;
+      }
+
+      if (request.method === "POST" && pathname === "/api/knot/session/extend") {
+        const body = await readBody(request);
+        const sessionId = await extendKnotSession(body.sessionId);
+        json(response, 200, { sessionId });
+        return;
+      }
+
+      if (request.method === "POST" && pathname === "/api/knot/webhooks") {
+        const rawBody = await readRawBody(request);
+        let payload;
+        try { payload = JSON.parse(rawBody); } catch { json(response, 400, { error: "Invalid JSON" }); return; }
+
+        // Store webhook event idempotently
+        const taskId = payload.task_id || null;
+        const event = payload.event || "";
+        if (taskId && sb) {
+          const { error: upsertErr } = await sb
+            .from("knot_webhook_events")
+            .upsert({
+              event,
+              session_id: payload.session_id || null,
+              task_id: taskId,
+              external_user_id: payload.external_user_id || null,
+              merchant_id: payload.merchant_id || null,
+              payload,
+              processed_at: new Date().toISOString()
+            }, { onConflict: "event,task_id", ignoreDuplicates: true });
+          if (upsertErr) { console.warn("[knot-webhook] idempotency upsert error:", upsertErr.message); }
+        }
+
+        // Dispatch to handler
+        try {
+          switch (event) {
+            case "AUTHENTICATED": await handleMerchantAuthenticated(sb, payload); break;
+            case "SYNC_CART_SUCCEEDED": await handleCartSyncSucceeded(sb, payload); break;
+            case "SYNC_CART_FAILED": await handleCartSyncFailed(sb, payload); break;
+            case "CHECKOUT_SUCCEEDED": await handleCheckoutSucceeded(sb, payload); break;
+            case "CHECKOUT_FAILED": await handleCheckoutFailed(sb, payload); break;
+            case "ACCOUNT_LOGIN_REQUIRED": await handleAccountLoginRequired(sb, payload); break;
+            default: console.log(`[knot-webhook] unhandled event: ${event}`);
+          }
+        } catch (handlerErr) {
+          console.error(`[knot-webhook] handler error for ${event}:`, handlerErr.message);
+        }
+
+        json(response, 200, { ok: true });
+        return;
+      }
+
+      // ── Static files ────────────────────────────────────────────────────────
 
       if (request.method === "GET" && !pathname.startsWith("/api")) {
         const staticPath = mapHtmlRoute(pathname);

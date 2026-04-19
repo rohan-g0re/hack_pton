@@ -77,6 +77,95 @@ function renderCardSummary(card) {
   `;
 }
 
+let knotMerchants = [];
+
+async function loadKnotMerchants() {
+  const data = await request("/api/knot/merchants");
+  knotMerchants = data.merchants || [];
+  renderMerchantList();
+}
+
+function renderMerchantList() {
+  const container = document.getElementById("knot-merchant-list");
+  if (!knotMerchants.length) { container.innerHTML = `<p class="muted">No merchants available.</p>`; return; }
+
+  container.innerHTML = knotMerchants.map(m => `
+    <div class="inv-row" style="align-items:center;gap:1rem;">
+      <span style="flex:1"><strong>${escapeHtml(m.name)}</strong>
+        <span class="status-pill" style="font-size:0.7rem;margin-left:0.5rem">${escapeHtml(m.category)}</span>
+      </span>
+      <span class="muted" style="font-size:0.8rem">${m.type === "card_switcher" ? "Card management" : "Shopping"}</span>
+      <button type="button" class="button" style="padding:0.3rem 0.75rem;font-size:0.85rem"
+        data-merchant-id="${escapeHtml(String(m.id))}"
+        data-merchant-name="${escapeHtml(m.name)}"
+        data-merchant-type="${escapeHtml(m.type)}">
+        Link →
+      </button>
+    </div>
+  `).join("");
+
+  container.querySelectorAll("[data-merchant-id]").forEach(btn => {
+    btn.addEventListener("click", () => openKnotSDK({
+      merchantId: Number(btn.dataset.merchantId),
+      merchantName: btn.dataset.merchantName,
+      merchantType: btn.dataset.merchantType
+    }));
+  });
+}
+
+async function openKnotSDK({ merchantId, merchantName, merchantType }) {
+  const hint = document.getElementById("knot-hint");
+  hint.textContent = `Opening Knot for ${merchantName}…`;
+
+  try {
+    const init = await request("/api/knot/session", {
+      method: "POST",
+      body: JSON.stringify({ merchantId })
+    });
+
+    const KnotapiJS = window.KnotapiJS?.default || window.KnotapiJS;
+    if (!KnotapiJS) {
+      hint.textContent = "Knot SDK not loaded. Check network connection.";
+      return;
+    }
+
+    const knotapi = new KnotapiJS();
+    knotapi.open({
+      sessionId: init.sessionId,
+      clientId: init.clientId,
+      environment: init.environment,
+      merchantIds: init.merchantIds,
+      entryPoint: "patient_payment_setup",
+      useCategories: init.sessionType !== "card_switcher",
+      useSearch: init.sessionType !== "card_switcher",
+      locale: "en-US",
+      onSuccess: () => {
+        hint.textContent = `${merchantName} account linked!`;
+        loadKnotMerchants();
+      },
+      onError: (code, desc) => {
+        const codeStr = typeof code === "object" ? JSON.stringify(code) : String(code ?? "");
+        const descStr = typeof desc === "object" ? JSON.stringify(desc) : String(desc ?? "");
+        console.error("Knot onError:", code, desc);
+        hint.textContent = `Knot error: ${codeStr}${descStr ? " — " + descStr : ""}`;
+      },
+      onExit: () => {
+        if (hint.textContent.startsWith("Opening Knot")) hint.textContent = "";
+      },
+      onEvent: async (event) => {
+        if (event === "REFRESH_SESSION_REQUEST") {
+          await request("/api/knot/session/extend", {
+            method: "POST",
+            body: JSON.stringify({ sessionId: init.sessionId })
+          });
+        }
+      }
+    });
+  } catch (err) {
+    hint.textContent = `Error: ${err.message}`;
+  }
+}
+
 async function hydrate() {
   const data = await request("/api/state");
   document.getElementById("patient-title").textContent = `Settings for ${data.patient.name}`;
@@ -89,6 +178,7 @@ async function hydrate() {
   wireRemoveButtons(rx);
 
   renderCardSummary(data.paymentCard || { brand: "—", last4: "—", status: "—" });
+  loadKnotMerchants().catch(() => {});
 }
 
 document.getElementById("add-inventory").addEventListener("click", () => {
@@ -132,16 +222,8 @@ document.getElementById("save-prescriptions").addEventListener("click", async ()
   await hydrate();
 });
 
-document.getElementById("update-card").addEventListener("click", async () => {
-  const last4 = window.prompt("Demo: enter last 4 digits for the vaulted card", "4242");
-  if (!last4) {
-    return;
-  }
-  const data = await request("/api/payment-card", {
-    method: "POST",
-    body: JSON.stringify({ last4, brand: "VISA", status: "active" })
-  });
-  renderCardSummary(data.paymentCard);
+document.getElementById("update-card").addEventListener("click", () => {
+  alert("Card vaulting requires Knot SDK integration. Use the Knot merchant linking flow above to set up payment.");
 });
 
 hydrate().catch((error) => {

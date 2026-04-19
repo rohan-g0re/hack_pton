@@ -232,7 +232,7 @@ function startPolling() {
 
 loadState()
   .then(() => {
-    document.getElementById("live-indicator").textContent = "Demo polling";
+    document.getElementById("live-indicator").textContent = "Live";
     startPolling();
   })
   .catch((error) => {

@@ -83,7 +83,7 @@ function render(proposal, paymentCard, checkout) {
       </section>
       <section class="panel">
         <h2>Gemini analysis</h2>
-        <p class="muted">Model: Gemini ER (demo)</p>
+        <p class="muted">Model: Gemini Robotics ER 1.6</p>
         ${confidenceBar(proposal.confidence)}
         <p class="analysis-narrative"><strong>Scene detected:</strong><br/>${sceneNarrative(proposal)}</p>
       </section>

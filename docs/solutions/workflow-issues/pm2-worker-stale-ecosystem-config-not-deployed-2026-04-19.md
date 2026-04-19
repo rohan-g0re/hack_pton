@@ -109,11 +109,26 @@ const envFile = path.join(__dirname, ".env");
 const envVars = loadEnv(envFile);
 
 module.exports = {
-  apps: [{
-    name: "caretaker-worker",
-    script: "services/worker/index.mjs",
-    env: { NODE_ENV: "production", ...envVars }
-  }]
+  apps: [
+    {
+      name: "caretaker-worker",
+      script: "services/worker/index.mjs",
+      interpreter: "node",
+      instances: 1,
+      autorestart: true,
+      max_memory_restart: "500M",
+      env: { NODE_ENV: "production", ...envVars }
+    },
+    {
+      name: "caretaker-notifier",
+      script: "services/notifier/server.mjs",
+      interpreter: "node",
+      instances: 1,
+      autorestart: true,
+      max_memory_restart: "200M",
+      env: { NODE_ENV: "production", ...envVars }
+    }
+  ]
 };
 ```
 
