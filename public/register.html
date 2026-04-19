@@ -7,45 +7,55 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="page-shell narrow">
-      <a class="back-link" href="/">← Back to home</a>
+    <div class="page-shell">
+      <div class="top-bar">
+        <a class="back-btn" href="/">&#8592; Back</a>
+        <span class="route-pill">/register</span>
+      </div>
 
-      <header class="page-title-block">
-        <h1>Register as Caretaker</h1>
-        <p class="muted">Set up your household to begin monitoring your patient.</p>
-      </header>
-
-      <section class="panel">
-        <div class="panel-heading">
-          <h2>Caretaker details</h2>
+      <div class="two-col-layout">
+        <div class="intro-col">
+          <p class="eyebrow">Caretaker setup</p>
+          <h1>Register as Caretaker</h1>
+          <p>
+            Set up your household to begin monitoring your patient.
+            We'll use your phone number for iMessage medication alerts via Photon.
+          </p>
+          <p class="muted">
+            Takes about 2 minutes. You can edit all settings later from the dashboard.
+          </p>
         </div>
-        <form id="register-form" class="stack gap-md">
-          <label>
-            Your name
-            <input name="caretakerName" type="text" autocomplete="name" required />
-          </label>
-          <label>
-            Your phone number
-            <input name="phone" type="tel" autocomplete="tel" required />
-          </label>
-          <p class="form-hint">Used for iMessage medication alerts (Photon).</p>
-          <label>
-            Patient name
-            <input name="patientName" type="text" required />
-          </label>
-          <label>
-            Relationship
-            <select name="relationship" required>
-              <option value="Grandmother">Grandmother</option>
-              <option value="Grandfather">Grandfather</option>
-              <option value="Parent">Parent</option>
-              <option value="Spouse">Spouse</option>
-              <option value="Other">Other</option>
-            </select>
-          </label>
-          <button class="button" type="submit">Continue to Dashboard →</button>
-        </form>
-      </section>
+
+        <div class="form-card">
+          <h2>Your details</h2>
+          <form id="register-form" class="stack gap-md">
+            <label>
+              Your name
+              <input name="caretakerName" type="text" autocomplete="name" placeholder="Jane Smith" required />
+            </label>
+            <label>
+              Your phone number
+              <input name="phone" type="tel" autocomplete="tel" placeholder="+1 555 000 0000" required />
+            </label>
+            <p class="form-hint">Used for iMessage medication alerts (Photon).</p>
+            <label>
+              Patient name
+              <input name="patientName" type="text" placeholder="Eleanor Smith" required />
+            </label>
+            <label>
+              Relationship
+              <select name="relationship" required>
+                <option value="Grandmother">Grandmother</option>
+                <option value="Grandfather">Grandfather</option>
+                <option value="Parent">Parent</option>
+                <option value="Spouse">Spouse</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+            <button class="button" type="submit">Continue to Dashboard &#8594;</button>
+          </form>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="/register.js"></script>

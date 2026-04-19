@@ -8,26 +8,38 @@
   </head>
   <body>
     <div class="page-shell">
-      <a class="back-link" href="/">← Back to home</a>
+      <div class="top-bar">
+        <a class="back-btn" href="/">&#8592; Back</a>
+        <span class="route-pill">/camera</span>
+      </div>
 
-      <header class="page-title-block">
-        <h1>Set Up Nanny Cam</h1>
-        <p class="muted">Choose which area this device monitors.</p>
-      </header>
+      <div class="cam-select-header">
+        <p class="eyebrow">Device role</p>
+        <h1>Which room should this device watch?</h1>
+        <p>The same browser camera flow supports pantry inventory checks and medication adherence checks.</p>
+      </div>
 
-      <div class="role-grid">
-        <a class="role-card" href="/bind?role=pantry">
-          <span class="role-card-icon" aria-hidden="true">▣</span>
-          <h2>Nanny Pantry Cam</h2>
-          <p>Place in front of the pantry shelves.</p>
-          <span class="button role-card-cta">Start Pantry →</span>
+      <div class="cam-role-chooser">
+        <a class="cam-role-card" href="/bind?role=pantry">
+          <div class="role-card-icon" aria-hidden="true">&#9632;</div>
+          <h2>Pantry Nanny Cam</h2>
+          <p>Place this device in front of the pantry shelves. AI will scan for low-stock items and trigger grocery proposals.</p>
+          <span class="button role-card-cta">Start Pantry &#8594;</span>
         </a>
-        <a class="role-card" href="/bind?role=medicine">
-          <span class="role-card-icon" aria-hidden="true">✚</span>
-          <h2>Nanny Medicine Cam</h2>
-          <p>Point at the medicine table where pills are.</p>
-          <span class="button role-card-cta">Start Medicine →</span>
+        <a class="cam-role-card" href="/bind?role=medicine">
+          <div class="role-card-icon" style="background: var(--blue-soft); color: #2563eb" aria-hidden="true">&#10010;</div>
+          <h2>Medicine Nanny Cam</h2>
+          <p>Point at the medicine table where pills are kept. AI will confirm medication adherence and alert caretakers.</p>
+          <span class="button button-secondary role-card-cta">Start Medicine &#8594;</span>
         </a>
+      </div>
+
+      <div class="cam-footer">
+        <span class="cam-footer-icon">&#9641;</span>
+        <p>
+          After choosing a role, you'll see a pairing code. Share it with the caretaker or scan the QR code
+          to connect this camera to the dashboard.
+        </p>
       </div>
     </div>
   </body>

@@ -8,112 +8,132 @@
   </head>
   <body>
     <div class="page-shell">
-      <header class="hero dashboard-hero">
+      <header class="dashboard-header">
         <div>
-          <p class="eyebrow">Hack Princeton 2026</p>
-          <h1>Caretaker Command Center</h1>
-          <p id="dashboard-subtitle" class="hero-copy"></p>
+          <p class="eyebrow">Caretaker Command Center</p>
+          <h1>Dashboard</h1>
+          <p id="dashboard-subtitle"></p>
         </div>
-        <div class="hero-actions">
+        <div class="dashboard-actions">
           <button id="reset-demo" type="button" class="button button-secondary">Reset Data</button>
-          <a class="button" href="/camera/pantry" target="_blank" rel="noopener">Open Pantry Cam</a>
-          <a class="button" href="/camera/medicine" target="_blank" rel="noopener">Open Medicine Cam</a>
-          <a class="button button-secondary" href="/dashboard/patient">Patient Settings</a>
+          <a class="button button-secondary" href="/camera/pantry" target="_blank" rel="noopener">Pantry Cam</a>
+          <a class="button button-secondary" href="/camera/medicine" target="_blank" rel="noopener">Medicine Cam</a>
+          <a class="button" href="/dashboard/patient">Patient Settings</a>
         </div>
       </header>
 
-      <main class="grid dashboard-grid">
-        <section class="panel">
-          <div class="panel-heading">
-            <h2>Profile &amp; payment</h2>
-          </div>
-          <div id="profile-summary" class="stack"></div>
-          <div class="stack gap-sm panel-actions">
-            <a class="button button-secondary" href="/dashboard/patient">Edit profile &amp; card</a>
-            <form id="pair-form" class="pair-form" autocomplete="off">
-              <label class="pair-label">
-                Pair a nanny cam
-                <input
-                  id="pair-input"
-                  name="code"
-                  type="text"
-                  inputmode="numeric"
-                  pattern="[0-9 ]*"
-                  maxlength="7"
-                  placeholder="123 456"
-                  required
-                />
-              </label>
-              <button type="submit" class="button">Pair</button>
-            </form>
-            <p id="pair-feedback" class="form-hint"></p>
-          </div>
-        </section>
+      <main class="dashboard-workspace">
+        <!-- Left column: profile, pairing, camera status -->
+        <div class="db-col">
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Profile &amp; payment</h2>
+            </div>
+            <div id="profile-summary" class="stack"></div>
+            <div class="stack gap-sm panel-actions">
+              <a class="button button-secondary" href="/dashboard/patient">Edit profile &amp; card</a>
+              <form id="pair-form" class="pair-form" autocomplete="off">
+                <label class="pair-label">
+                  Pair a nanny cam
+                  <input
+                    id="pair-input"
+                    name="code"
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0-9 ]*"
+                    maxlength="7"
+                    placeholder="123 456"
+                    required
+                  />
+                </label>
+                <button type="submit" class="button">Pair</button>
+              </form>
+              <p id="pair-feedback" class="form-hint"></p>
+            </div>
+          </section>
 
-        <section class="panel">
-          <div class="panel-heading">
-            <h2>Camera status</h2>
-            <span id="live-indicator" class="status-pill status-live">Live</span>
-          </div>
-          <div id="camera-status" class="stack"></div>
-        </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Camera status</h2>
+              <span id="live-indicator" class="status-pill status-live">Live</span>
+            </div>
+            <div id="camera-status" class="stack"></div>
+          </section>
+        </div>
 
-        <section class="panel wide">
-          <div class="panel-heading">
-            <h2>Pantry inventory</h2>
-            <a class="button button-secondary" href="/dashboard/patient">Edit Items →</a>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table" id="inventory-table">
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Target qty</th>
-                  <th>Low-stock threshold</th>
-                  <th>Preferred merchant</th>
-                </tr>
-              </thead>
-              <tbody id="inventory-body"></tbody>
-            </table>
-          </div>
-        </section>
+        <!-- Center column: inventory, medications, proposals, events -->
+        <div class="db-col">
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Pantry inventory</h2>
+              <a class="button button-secondary" href="/dashboard/patient">Edit Items &#8594;</a>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table" id="inventory-table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Target qty</th>
+                    <th>Low-stock threshold</th>
+                    <th>Preferred merchant</th>
+                  </tr>
+                </thead>
+                <tbody id="inventory-body"></tbody>
+              </table>
+            </div>
+          </section>
 
-        <section class="panel wide">
-          <div class="panel-heading">
-            <h2>Medication schedule</h2>
-            <a class="button button-secondary" href="/dashboard/patient">Edit Meds →</a>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table" id="prescription-table">
-              <thead>
-                <tr>
-                  <th>Medicine</th>
-                  <th>Count</th>
-                  <th>Time</th>
-                  <th>Window</th>
-                  <th>Purpose</th>
-                </tr>
-              </thead>
-              <tbody id="prescription-body"></tbody>
-            </table>
-          </div>
-        </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Medication schedule</h2>
+              <a class="button button-secondary" href="/dashboard/patient">Edit Meds &#8594;</a>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table" id="prescription-table">
+                <thead>
+                  <tr>
+                    <th>Medicine</th>
+                    <th>Count</th>
+                    <th>Time</th>
+                    <th>Window</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody id="prescription-body"></tbody>
+              </table>
+            </div>
+          </section>
 
-        <section class="panel wide">
-          <div class="panel-heading">
-            <h2>Purchase proposals</h2>
-            <span class="status-pill status-awaiting-approval">Approval required</span>
-          </div>
-          <div id="proposal-list" class="stack"></div>
-        </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Purchase proposals</h2>
+              <span class="status-pill status-awaiting-approval">Approval required</span>
+            </div>
+            <div id="proposal-list" class="stack"></div>
+          </section>
 
-        <section class="panel wide">
-          <div class="panel-heading">
-            <h2>Event &amp; notification feed</h2>
-            <span class="status-pill">Photon + dashboard</span>
-          </div>
-          <div id="event-list" class="stack"></div>
-        </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Event &amp; notification feed</h2>
+              <span class="status-pill">Photon + dashboard</span>
+            </div>
+            <div id="event-list" class="stack"></div>
+          </section>
+        </div>
+
+        <!-- Right column: placeholder for future camera thumbnails or additional widgets -->
+        <div class="db-col">
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Quick actions</h2>
+            </div>
+            <div class="stack gap-sm">
+              <a class="button" href="/camera/pantry" target="_blank" rel="noopener">Open Pantry Cam &#8599;</a>
+              <a class="button button-secondary" href="/camera/medicine" target="_blank" rel="noopener">Open Medicine Cam &#8599;</a>
+              <a class="button button-secondary" href="/dashboard/patient">Patient Settings</a>
+            </div>
+          </section>
+        </div>
       </main>
     </div>
 
