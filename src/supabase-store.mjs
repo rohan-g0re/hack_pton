@@ -54,7 +54,7 @@ export class SupabaseStore {
   async listState() {
     const { data: caretaker, error: cErr } = await this.client
       .from("caretakers")
-      .select("*")
+      .select("id, name, phone, email, photon_status, photon_thread_opened_at, photon_last_error, photon_last_smoke_test_at")
       .eq("id", SEED_CARETAKER_ID)
       .maybeSingle();
     if (cErr) {
@@ -205,7 +205,16 @@ export class SupabaseStore {
         demoMode: false,
         supabase: true
       },
-      caretaker: { id: caretaker.id, name: caretaker.name, phone: caretaker.phone },
+      caretaker: {
+        id: caretaker.id,
+        name: caretaker.name,
+        phone: caretaker.phone,
+        email: caretaker.email || "",
+        photonStatus: caretaker.photon_status || "not_configured",
+        photonThreadOpenedAt: caretaker.photon_thread_opened_at || null,
+        photonLastError: caretaker.photon_last_error || null,
+        photonLastSmokeTestAt: caretaker.photon_last_smoke_test_at || null
+      },
       patient: { id: patient.id, name: patient.name, relationship: patient.relationship },
       paymentCard,
       cameras,
@@ -275,12 +284,23 @@ export class SupabaseStore {
   }
 
   async updateProfile(payload) {
-    if (payload.caretakerName || payload.phone) {
+    if (payload.caretakerName || payload.phone || payload.email !== undefined || payload.photonStatus) {
+      // Validate phone when provided
+      if (payload.phone) {
+        const { normalizePhone } = await import("../services/photon/config.mjs");
+        const normalized = normalizePhone(payload.phone);
+        if (!normalized) {
+          throw new Error("phone must be a valid E.164 number (e.g. +16095550100).");
+        }
+        payload.phone = normalized;
+      }
       await this.client
         .from("caretakers")
         .update({
           ...(payload.caretakerName ? { name: String(payload.caretakerName) } : {}),
-          ...(payload.phone ? { phone: String(payload.phone) } : {})
+          ...(payload.phone ? { phone: payload.phone } : {}),
+          ...(payload.email !== undefined ? { email: String(payload.email) } : {}),
+          ...(payload.photonStatus ? { photon_status: String(payload.photonStatus) } : {})
         })
         .eq("id", SEED_CARETAKER_ID);
     }

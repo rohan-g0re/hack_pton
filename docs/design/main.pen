@@ -6276,6 +6276,3611 @@
           ]
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "AZImP",
+      "x": 0,
+      "y": 3360,
+      "name": "S10 Caretaker Settings Amazon Link",
+      "width": 1440,
+      "height": 1024,
+      "fill": "$surface",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$line"
+      },
+      "layout": "vertical",
+      "gap": 28,
+      "padding": 48,
+      "children": [
+        {
+          "type": "frame",
+          "id": "t0sJI",
+          "name": "Top bar",
+          "width": "fill_container",
+          "height": 52,
+          "fill": "#FFFFFF00",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "GxkF7",
+              "name": "back",
+              "fill": "$surface",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "$line"
+              },
+              "gap": 8,
+              "padding": [
+                10,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "HrYux",
+                  "name": "backIcon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "arrow-left",
+                  "iconFontFamily": "lucide",
+                  "fill": "$accent"
+                },
+                {
+                  "type": "text",
+                  "id": "sLoBw",
+                  "name": "backText",
+                  "fill": "$accent",
+                  "content": "Back to dashboard",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "KrR1z",
+              "name": "route",
+              "fill": "$blue-soft",
+              "cornerRadius": 999,
+              "padding": [
+                8,
+                12
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "nxVVm",
+                  "name": "routeText",
+                  "fill": "$ink-muted",
+                  "content": "/dashboard/patient",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "JTrCV",
+          "name": "head",
+          "width": "fill_container",
+          "height": 124,
+          "fill": "#FFFFFF00",
+          "justifyContent": "space_between",
+          "alignItems": "end",
+          "children": [
+            {
+              "type": "frame",
+              "id": "7f77W",
+              "name": "headCopy",
+              "width": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "H8Zck",
+                  "name": "eyebrow",
+                  "fill": "$accent",
+                  "content": "CARETAKER SETTINGS",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "SDGuB",
+                  "name": "title",
+                  "fill": "$ink",
+                  "content": "Connect Amazon order history",
+                  "fontFamily": "Inter",
+                  "fontSize": 44,
+                  "fontWeight": "750"
+                },
+                {
+                  "type": "text",
+                  "id": "SfuM0",
+                  "name": "sub",
+                  "fill": "$ink-muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Caretaker-only settings for Mira Shah. Account linking and order history are managed by the caretaker, not by the patient.",
+                  "lineHeight": 1.38,
+                  "fontFamily": "Inter",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "VbXZF",
+              "name": "save",
+              "height": 46,
+              "fill": "$accent",
+              "cornerRadius": 8,
+              "padding": [
+                0,
+                18
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "lfOYd",
+                  "name": "saveText",
+                  "fill": "$surface",
+                  "content": "Save settings",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "800"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "hLBeq",
+          "name": "Amazon link settings workspace",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#FFFFFF00",
+          "gap": 22,
+          "children": [
+            {
+              "type": "frame",
+              "id": "7azW8",
+              "name": "left",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 18,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "7BBU3",
+                  "name": "Amazon order history panel",
+                  "width": "fill_container",
+                  "height": 420,
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#10201B1F",
+                    "offset": {
+                      "x": 0,
+                      "y": 18
+                    },
+                    "blur": 44,
+                    "spread": -28
+                  },
+                  "layout": "vertical",
+                  "gap": 18,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "1Nvs8",
+                      "name": "amazonHead",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF00",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "8W97R",
+                          "name": "amazonTitleWrap",
+                          "fill": "#FFFFFF00",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "fexeg",
+                              "name": "amazonIconBox",
+                              "width": 42,
+                              "height": 42,
+                              "fill": "$warning-soft",
+                              "cornerRadius": 10,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon_font",
+                                  "id": "EbljS",
+                                  "name": "amazonIcon",
+                                  "width": 22,
+                                  "height": 22,
+                                  "iconFontName": "shopping-bag",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "$warning"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "nZwOf",
+                              "name": "amazonTitle",
+                              "fill": "$ink",
+                              "content": "Amazon order history",
+                              "fontFamily": "Inter",
+                              "fontSize": 22,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "6Q0N7",
+                          "name": "status",
+                          "fill": "$danger-soft",
+                          "cornerRadius": 999,
+                          "gap": 8,
+                          "padding": [
+                            7,
+                            12
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "h1htD",
+                              "name": "statusDot",
+                              "width": 8,
+                              "height": 8,
+                              "fill": "$danger",
+                              "cornerRadius": 999
+                            },
+                            {
+                              "type": "text",
+                              "id": "EwsIa",
+                              "name": "statusText",
+                              "fill": "$danger",
+                              "content": "Not connected",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "yeaTN",
+                      "name": "amazonBody",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "fill": "#FFFFFF00",
+                      "gap": 22,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "9Zfhf",
+                          "name": "copy",
+                          "width": "fill_container",
+                          "fill": "#FFFFFF00",
+                          "layout": "vertical",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "S3Pzh",
+                              "name": "copyTitle",
+                              "fill": "$ink",
+                              "content": "Use Knot Transaction Link for real orders",
+                              "fontFamily": "Inter",
+                              "fontSize": 26,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "text",
+                              "id": "CSAWB",
+                              "name": "copyText",
+                              "fill": "$ink-muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "The caretaker signs into the patient's Amazon account through Knot. Synced transactions appear on the dashboard with item names, quantities, dates, totals, and order status.",
+                              "lineHeight": 1.45,
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "CySkN",
+                              "name": "callout",
+                              "width": "fill_container",
+                              "fill": "$accent-soft",
+                              "cornerRadius": 12,
+                              "gap": 10,
+                              "padding": 14,
+                              "children": [
+                                {
+                                  "type": "icon_font",
+                                  "id": "n1aB5",
+                                  "name": "calloutIcon",
+                                  "width": 20,
+                                  "height": 20,
+                                  "iconFontName": "shield-check",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "$accent"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "NPjXK",
+                                  "name": "calloutText",
+                                  "fill": "$accent",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Separate from Shopping: this only reads order history; no cart or auto-ordering.",
+                                  "lineHeight": 1.35,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "lVihl",
+                          "name": "connectCard",
+                          "width": 320,
+                          "height": "fill_container",
+                          "fill": "$surface-muted",
+                          "cornerRadius": 14,
+                          "stroke": {
+                            "thickness": 1,
+                            "fill": "$line"
+                          },
+                          "layout": "vertical",
+                          "gap": 14,
+                          "padding": 20,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "rasTp",
+                              "name": "connectTop",
+                              "fill": "$ink-muted",
+                              "content": "Connection action",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "PJjZY",
+                              "name": "connectButton",
+                              "width": "fill_container",
+                              "height": 52,
+                              "fill": "$accent",
+                              "cornerRadius": 9,
+                              "gap": 10,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon_font",
+                                  "id": "VeVjI",
+                                  "name": "connectIcon",
+                                  "width": 18,
+                                  "height": 18,
+                                  "iconFontName": "link",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "$surface"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "T3Bmb",
+                                  "name": "connectText",
+                                  "fill": "$surface",
+                                  "content": "Connect Amazon account",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 15,
+                                  "fontWeight": "800"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "ZfRh6",
+                              "name": "hint",
+                              "fill": "$ink-muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Opens a Knot SDK modal with Amazon selected. On success, webhooks sync transactions into Supabase.",
+                              "lineHeight": 1.45,
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "oa2hj",
+                              "name": "dev",
+                              "width": "fill_container",
+                              "fill": "$blue-soft",
+                              "cornerRadius": 10,
+                              "layout": "vertical",
+                              "gap": 6,
+                              "padding": 12,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "7cN5H",
+                                  "name": "devTitle",
+                                  "fill": "$ink",
+                                  "content": "Development fallback",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "800"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "bk3sh",
+                                  "name": "devText",
+                                  "fill": "$ink-muted",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Use /development/accounts/link when testing without the SDK.",
+                                  "lineHeight": 1.35,
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xmk8h",
+                  "name": "Existing patient settings preview",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#FFFFFF00",
+                  "gap": 18,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "qYJiQ",
+                      "name": "payment",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "fill": "$surface-muted",
+                      "cornerRadius": 16,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$line"
+                      },
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "1NwRS",
+                          "name": "payTitle",
+                          "fill": "$ink",
+                          "content": "Payment card",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "B6ZZL",
+                          "name": "payText",
+                          "fill": "$ink-muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Visa ending 4242\nUsed for future grocery checkout.\nSeparate from Amazon order history.",
+                          "lineHeight": 1.55,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "3CbTg",
+                      "name": "meds",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "fill": "$surface-muted",
+                      "cornerRadius": 16,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$line"
+                      },
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "RtDrt",
+                          "name": "medTitle",
+                          "fill": "$ink",
+                          "content": "Medication schedule",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "SjpFF",
+                          "name": "medText",
+                          "fill": "$ink-muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Metformin · 09:00\nVitamin D · 14:00\nAtorvastatin · 20:30",
+                          "lineHeight": 1.55,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Qn4zx",
+              "name": "right",
+              "width": 520,
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 18,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "VrngV",
+                  "name": "statusCard",
+                  "width": "fill_container",
+                  "height": 286,
+                  "fill": "$surface-muted",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 22,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "vp41z",
+                      "name": "statusTitle",
+                      "fill": "$ink",
+                      "content": "Caretaker-only status",
+                      "fontFamily": "Inter",
+                      "fontSize": 20,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "LOYoy",
+                      "name": "statusRow1",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#FFFFFF00",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "RcDUW",
+                          "name": "sr1Label",
+                          "fill": "$ink",
+                          "content": "Amazon",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Lfcby",
+                          "name": "sr1Value",
+                          "fill": "$danger",
+                          "content": "Not connected",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "MxnhR",
+                      "name": "statusRow2",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#FFFFFF00",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "DXZYV",
+                          "name": "sr2Label",
+                          "fill": "$ink",
+                          "content": "Product",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "UJMkn",
+                          "name": "sr2Value",
+                          "fill": "$accent",
+                          "content": "Transaction Link",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pEbU7",
+                      "name": "statusRow3",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#FFFFFF00",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "abYOy",
+                          "name": "sr3Label",
+                          "fill": "$ink",
+                          "content": "Session type",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "VzGSt",
+                          "name": "sr3Value",
+                          "fill": "$ink-muted",
+                          "content": "transaction_link",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "2cj8u",
+                  "name": "apiCard",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$accent-soft",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#B7E2D2"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 22,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wxXzC",
+                      "name": "apiTitle",
+                      "fill": "$accent",
+                      "content": "What the button calls",
+                      "fontFamily": "Inter",
+                      "fontSize": 20,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "2lHdG",
+                      "name": "apiText",
+                      "fill": "$accent",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "POST /api/knot/session\nmerchantId: 44\npurpose: order_history\n\nThe caretaker launches this flow. After webhooks fire, orders appear in /api/state as knotTransactions[] on the caretaker dashboard only.",
+                      "lineHeight": 1.55,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Lv19b",
+      "x": 1520,
+      "y": 3360,
+      "name": "S11 Knot Amazon SDK Modal",
+      "width": 1440,
+      "height": 1024,
+      "fill": "$surface",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$line"
+      },
+      "layout": "vertical",
+      "gap": 28,
+      "padding": 48,
+      "children": [
+        {
+          "type": "frame",
+          "id": "YP7zm",
+          "name": "Dimmed Patient Settings backdrop",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "$surface-muted",
+          "cornerRadius": 18,
+          "stroke": {
+            "thickness": 1,
+            "fill": "$line"
+          },
+          "layout": "vertical",
+          "gap": 22,
+          "padding": 28,
+          "children": [
+            {
+              "type": "frame",
+              "id": "1fnvI",
+              "name": "backTop",
+              "opacity": 0.35,
+              "width": "fill_container",
+              "height": 52,
+              "fill": "#FFFFFF00",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "gJxLg",
+                  "name": "backTitle",
+                  "fill": "$ink",
+                  "content": "Settings for Mira Shah",
+                  "fontFamily": "Inter",
+                  "fontSize": 26,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "w7ipn",
+                  "name": "backPill",
+                  "fill": "$accent-soft",
+                  "cornerRadius": 999,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "DVcio",
+                      "name": "backPillText",
+                      "fill": "$accent",
+                      "content": "Amazon order history",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "800"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "PQmtc",
+              "name": "backPanel",
+              "opacity": 0.32,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$surface",
+              "cornerRadius": 16,
+              "stroke": {
+                "thickness": 1,
+                "fill": "$line"
+              },
+              "layout": "vertical",
+              "gap": 14,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "OU9Aw",
+                  "name": "backPanelTitle",
+                  "fill": "$ink",
+                  "content": "Amazon order history",
+                  "fontFamily": "Inter",
+                  "fontSize": 24,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "iUVze",
+                  "name": "backPanelText",
+                  "fill": "$ink-muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Connect the patient's Amazon account to sync recent orders into the caretaker dashboard.",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "HTv7x",
+          "layoutPosition": "absolute",
+          "x": 0,
+          "y": 0,
+          "name": "Centered Knot modal area",
+          "width": 1440,
+          "height": 1024,
+          "fill": "#FFFFFF00",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "FhDEf",
+              "name": "Knot SDK modal",
+              "width": 560,
+              "height": 720,
+              "fill": "$surface",
+              "cornerRadius": 22,
+              "stroke": {
+                "thickness": 1,
+                "fill": "$line"
+              },
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#10201B38",
+                "offset": {
+                  "x": 0,
+                  "y": 28
+                },
+                "blur": 64,
+                "spread": -26
+              },
+              "layout": "vertical",
+              "gap": 22,
+              "padding": 28,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "dlCJb",
+                  "name": "modalTop",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF00",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ULCkj",
+                      "name": "knotBrand",
+                      "fill": "#FFFFFF00",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "dT7En",
+                          "name": "knotMark",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "$ink",
+                          "cornerRadius": 8,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "19sdL",
+                              "name": "knotMarkText",
+                              "fill": "$surface",
+                              "content": "K",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "900"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "1WjgP",
+                          "name": "knotTitle",
+                          "fill": "$ink",
+                          "content": "Knot",
+                          "fontFamily": "Inter",
+                          "fontSize": 22,
+                          "fontWeight": "850"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "0uu6L",
+                      "name": "close",
+                      "width": 22,
+                      "height": 22,
+                      "iconFontName": "x",
+                      "iconFontFamily": "lucide",
+                      "fill": "$ink-muted"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "b06op",
+                  "name": "merchant",
+                  "width": "fill_container",
+                  "height": 176,
+                  "fill": "$warning-soft",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E8C870"
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "14Phu",
+                      "name": "merchantLogo",
+                      "width": 58,
+                      "height": 58,
+                      "fill": "$surface",
+                      "cornerRadius": 14,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "H61ic",
+                          "name": "merchantIcon",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "package",
+                          "iconFontFamily": "lucide",
+                          "fill": "$warning"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "NFZ51",
+                      "name": "merchantTitle",
+                      "fill": "$ink",
+                      "content": "Connect Amazon",
+                      "fontFamily": "Inter",
+                      "fontSize": 28,
+                      "fontWeight": "850"
+                    },
+                    {
+                      "type": "text",
+                      "id": "38Imf",
+                      "name": "merchantSub",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Knot Transaction Link will retrieve order history only. It cannot place orders or change the account.",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "5jMFV",
+                  "name": "steps",
+                  "width": "fill_container",
+                  "height": 206,
+                  "fill": "#FFFFFF00",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ToGyM",
+                      "name": "step1",
+                      "width": "fill_container",
+                      "height": 56,
+                      "fill": "$surface-muted",
+                      "cornerRadius": 12,
+                      "gap": 12,
+                      "padding": [
+                        0,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "lb6RF",
+                          "name": "step1Icon",
+                          "width": 22,
+                          "height": 22,
+                          "iconFontName": "log-in",
+                          "iconFontFamily": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gL4UJ",
+                          "name": "step1Text",
+                          "fill": "$ink",
+                          "content": "Sign in to Amazon through Knot",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "750"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "2WEel",
+                      "name": "step2",
+                      "width": "fill_container",
+                      "height": 56,
+                      "fill": "$surface-muted",
+                      "cornerRadius": 12,
+                      "gap": 12,
+                      "padding": [
+                        0,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "nhzOj",
+                          "name": "step2Icon",
+                          "width": 22,
+                          "height": 22,
+                          "iconFontName": "receipt-text",
+                          "iconFontFamily": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "dHaLf",
+                          "name": "step2Text",
+                          "fill": "$ink",
+                          "content": "Sync recent transactions and products",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "750"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "2ixo9",
+                      "name": "step3",
+                      "width": "fill_container",
+                      "height": 56,
+                      "fill": "$surface-muted",
+                      "cornerRadius": 12,
+                      "gap": 12,
+                      "padding": [
+                        0,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "bBwWD",
+                          "name": "step3Icon",
+                          "width": 22,
+                          "height": 22,
+                          "iconFontName": "layout-dashboard",
+                          "iconFontFamily": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "aX6pV",
+                          "name": "step3Text",
+                          "fill": "$ink",
+                          "content": "Show orders on caretaker dashboard",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "750"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "lKIOi",
+                  "name": "secure",
+                  "width": "fill_container",
+                  "height": 74,
+                  "fill": "$accent-soft",
+                  "cornerRadius": 12,
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "HLviM",
+                      "name": "secureIcon",
+                      "width": 22,
+                      "height": 22,
+                      "iconFontName": "lock-keyhole",
+                      "iconFontFamily": "lucide",
+                      "fill": "$accent"
+                    },
+                    {
+                      "type": "text",
+                      "id": "uyT3H",
+                      "name": "secureText",
+                      "fill": "$accent",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Secure OAuth-style flow. Account credentials are not handled by Okay Today.",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "mJRcq",
+                  "name": "auth",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#FFFFFF00",
+                  "layout": "vertical",
+                  "gap": 14,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "aiJci",
+                      "name": "primary",
+                      "width": "fill_container",
+                      "height": 56,
+                      "fill": "$accent",
+                      "cornerRadius": 10,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "079tW",
+                          "name": "primaryText",
+                          "fill": "$surface",
+                          "content": "Continue to Amazon",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "850"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "fJjVR",
+                      "name": "secondary",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "$surface",
+                      "cornerRadius": 10,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$line"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "QB2j1",
+                          "name": "secondaryText",
+                          "fill": "$ink",
+                          "content": "Cancel",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "cU7C4",
+                      "name": "footer",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Session type: transaction_link · Merchant: Amazon (44)",
+                      "lineHeight": 1.35,
+                      "textAlign": "center",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "KhVUi",
+      "x": 3040,
+      "y": 3360,
+      "name": "S12 Dashboard Amazon Orders",
+      "width": 1440,
+      "height": 1024,
+      "fill": "$surface",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$line"
+      },
+      "layout": "vertical",
+      "gap": 28,
+      "padding": 40,
+      "children": [
+        {
+          "type": "frame",
+          "id": "S7mr8",
+          "name": "Dashboard header",
+          "width": "fill_container",
+          "height": 136,
+          "fill": "#FFFFFF00",
+          "gap": 24,
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "94zu6",
+              "name": "headCopy",
+              "width": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "kQq72",
+                  "name": "eyebrow",
+                  "fill": "$accent",
+                  "content": "CARETAKER COMMAND CENTER",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "sx3s8",
+                  "name": "title",
+                  "fill": "$ink",
+                  "content": "Amazon orders synced",
+                  "lineHeight": 1.05,
+                  "fontFamily": "Inter",
+                  "fontSize": 46,
+                  "fontWeight": "750"
+                },
+                {
+                  "type": "text",
+                  "id": "dsfte",
+                  "name": "subtitle",
+                  "fill": "$ink-muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Caretaker-only dashboard. Mira Shah's Amazon account is connected through Knot Transaction Link, so recent purchases are visible by product, date, status, and total.",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Inter",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "qHTwm",
+              "name": "actions",
+              "fill": "#FFFFFF00",
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Byupf",
+                  "name": "connected",
+                  "height": 42,
+                  "fill": "$accent-soft",
+                  "cornerRadius": 999,
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Ip3Zs",
+                      "name": "connDot",
+                      "width": 8,
+                      "height": 8,
+                      "fill": "$success",
+                      "cornerRadius": 999
+                    },
+                    {
+                      "type": "text",
+                      "id": "7Z4P3",
+                      "name": "connText",
+                      "fill": "$success",
+                      "content": "Amazon connected",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "800"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "75kHF",
+                  "name": "settings",
+                  "height": 42,
+                  "fill": "$ink",
+                  "cornerRadius": 8,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "3WPRs",
+                      "name": "settingsText",
+                      "fill": "$surface",
+                      "content": "Patient settings",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "800"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "dFtjk",
+                  "name": "rolePill1",
+                  "height": 42,
+                  "fill": "$blue-soft",
+                  "cornerRadius": 999,
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "16mJC",
+                      "name": "rolePill1Text",
+                      "fill": "$ink-muted",
+                      "content": "Caretaker-only",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "800"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "gqhW6",
+          "name": "Dashboard with Amazon orders",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#FFFFFF00",
+          "gap": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "DPDan",
+              "name": "left",
+              "width": 320,
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "x0ohT",
+                  "name": "summary",
+                  "width": "fill_container",
+                  "height": 266,
+                  "fill": "$surface-muted",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "qM0JH",
+                      "name": "summaryTitle",
+                      "fill": "$ink",
+                      "content": "Transaction Link",
+                      "fontFamily": "Inter",
+                      "fontSize": 19,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "S2n07",
+                      "name": "summaryPill",
+                      "fill": "$accent-soft",
+                      "cornerRadius": 999,
+                      "gap": 8,
+                      "padding": [
+                        7,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "lirVh",
+                          "name": "summaryDot",
+                          "width": 8,
+                          "height": 8,
+                          "fill": "$success",
+                          "cornerRadius": 999
+                        },
+                        {
+                          "type": "text",
+                          "id": "2Lsfg",
+                          "name": "summaryStatus",
+                          "fill": "$success",
+                          "content": "Connected",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "7Aryv",
+                      "name": "summaryText",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Merchant: Amazon\nProduct: transaction_link\nLast sync: 10:44 AM\nTransactions stored: 5",
+                      "lineHeight": 1.55,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ovanS",
+                  "name": "syncCard",
+                  "width": "fill_container",
+                  "height": 220,
+                  "fill": "$accent-soft",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#B7E2D2"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "aJLeE",
+                      "name": "syncTitle",
+                      "fill": "$accent",
+                      "content": "Webhook sync path",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "RCIwJ",
+                      "name": "syncText",
+                      "fill": "$accent",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "NEW_TRANSACTIONS_AVAILABLE\n→ /api/knot/webhooks\n→ /transactions/sync\n→ Supabase knot_transactions",
+                      "lineHeight": 1.55,
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JjolM",
+                  "name": "eventMini",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "c030O",
+                      "name": "eventTitle",
+                      "fill": "$ink",
+                      "content": "Latest events",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "RRN91",
+                      "name": "eventText",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "[knot] Amazon account authenticated\n[knot] New transactions available\n[knot] 5 orders synced",
+                      "lineHeight": 1.55,
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "bq0FQ",
+              "name": "center",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "2FJ49",
+                  "name": "Recent Amazon orders panel",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "cHyKb",
+                      "name": "ordersHead",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF00",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "3RXp6",
+                          "name": "ordersTitle",
+                          "fill": "$ink",
+                          "content": "Recent Amazon orders",
+                          "fontFamily": "Inter",
+                          "fontSize": 22,
+                          "fontWeight": "850"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "XQQZL",
+                          "name": "ordersPill",
+                          "fill": "$blue-soft",
+                          "cornerRadius": 999,
+                          "padding": [
+                            7,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "fW3oV",
+                              "name": "ordersPillText",
+                              "fill": "$ink-muted",
+                              "content": "5 synced",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zmHua",
+                      "name": "order1",
+                      "width": "fill_container",
+                      "height": 142,
+                      "fill": "$surface-muted",
+                      "cornerRadius": 13,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$line"
+                      },
+                      "layout": "vertical",
+                      "gap": 10,
+                      "padding": 16,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "178vq",
+                          "name": "o1Top",
+                          "width": "fill_container",
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "BVkGy",
+                              "name": "o1Title",
+                              "fill": "$ink",
+                              "content": "Amazon order · Apr 18",
+                              "fontFamily": "Inter",
+                              "fontSize": 17,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "9j80f",
+                              "name": "o1Status",
+                              "fill": "$accent-soft",
+                              "cornerRadius": 999,
+                              "padding": [
+                                6,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "FDx8c",
+                                  "name": "o1StatusText",
+                                  "fill": "$success",
+                                  "content": "Completed",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "800"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "QOEtD",
+                          "name": "o1Items",
+                          "fill": "$ink-muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Ensure Max Protein x2 · Contigo water bottle x1 · Pill organizer x1",
+                          "lineHeight": 1.35,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "pGuux",
+                          "name": "o1Bottom",
+                          "width": "fill_container",
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Cz3ii",
+                              "name": "o1Count",
+                              "fill": "$ink-muted",
+                              "content": "3 products",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "text",
+                              "id": "fN6oF",
+                              "name": "o1Total",
+                              "fill": "$accent",
+                              "content": "$74.82",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "850"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "XfXFQ",
+                      "name": "order2",
+                      "width": "fill_container",
+                      "height": 142,
+                      "fill": "$surface-muted",
+                      "cornerRadius": 13,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$line"
+                      },
+                      "layout": "vertical",
+                      "gap": 10,
+                      "padding": 16,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "lIWd0",
+                          "name": "o2Top",
+                          "width": "fill_container",
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "DMSE4",
+                              "name": "o2Title",
+                              "fill": "$ink",
+                              "content": "Amazon order · Apr 15",
+                              "fontFamily": "Inter",
+                              "fontSize": 17,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "a5S5J",
+                              "name": "o2Status",
+                              "fill": "$warning-soft",
+                              "cornerRadius": 999,
+                              "padding": [
+                                6,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "vhXlj",
+                                  "name": "o2StatusText",
+                                  "fill": "$warning",
+                                  "content": "Shipped",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "800"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "IlxTr",
+                          "name": "o2Items",
+                          "fill": "$ink-muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Glucerna shakes x1 · Compression socks x2 · Large-print calendar x1",
+                          "lineHeight": 1.35,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "C5dsO",
+                          "name": "o2Bottom",
+                          "width": "fill_container",
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "LMp4M",
+                              "name": "o2Count",
+                              "fill": "$ink-muted",
+                              "content": "3 products",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "text",
+                              "id": "z8eT1",
+                              "name": "o2Total",
+                              "fill": "$accent",
+                              "content": "$51.38",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "850"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "CPxPb",
+                      "name": "order3",
+                      "width": "fill_container",
+                      "height": 142,
+                      "fill": "$surface-muted",
+                      "cornerRadius": 13,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$line"
+                      },
+                      "layout": "vertical",
+                      "gap": 10,
+                      "padding": 16,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "exza1",
+                          "name": "o3Top",
+                          "width": "fill_container",
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "56061",
+                              "name": "o3Title",
+                              "fill": "$ink",
+                              "content": "Amazon order · Apr 10",
+                              "fontFamily": "Inter",
+                              "fontSize": 17,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "j0TWA",
+                              "name": "o3Status",
+                              "fill": "$blue-soft",
+                              "cornerRadius": 999,
+                              "padding": [
+                                6,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jDppU",
+                                  "name": "o3StatusText",
+                                  "fill": "$ink-muted",
+                                  "content": "Ordered",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "800"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "RHKm7",
+                          "name": "o3Items",
+                          "fill": "$ink-muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Blood pressure cuff x1 · AA batteries x1",
+                          "lineHeight": 1.35,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "KxCTb",
+                          "name": "o3Bottom",
+                          "width": "fill_container",
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "jvITQ",
+                              "name": "o3Count",
+                              "fill": "$ink-muted",
+                              "content": "2 products",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "text",
+                              "id": "nULZv",
+                              "name": "o3Total",
+                              "fill": "$accent",
+                              "content": "$39.90",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "850"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "sCxgZ",
+              "name": "right",
+              "width": 390,
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "asOsC",
+                  "name": "source",
+                  "width": "fill_container",
+                  "height": 280,
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "oQiqG",
+                      "name": "sourceTitle",
+                      "fill": "$ink",
+                      "content": "Data source",
+                      "fontFamily": "Inter",
+                      "fontSize": 19,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uxDDQ",
+                      "name": "sourceRows",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "fill": "#FFFFFF00",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "0ZGUS",
+                          "name": "s1",
+                          "width": "fill_container",
+                          "height": 42,
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "nd1k7",
+                              "name": "s1a",
+                              "fill": "$ink-muted",
+                              "content": "Supabase table",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "text",
+                              "id": "WIqDf",
+                              "name": "s1b",
+                              "fill": "$ink",
+                              "content": "knot_transactions",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "i7RXS",
+                          "name": "s2",
+                          "width": "fill_container",
+                          "height": 42,
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "oaas5",
+                              "name": "s2a",
+                              "fill": "$ink-muted",
+                              "content": "API state key",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "text",
+                              "id": "YT3va",
+                              "name": "s2b",
+                              "fill": "$ink",
+                              "content": "knotTransactions[]",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "TJgr3",
+                          "name": "s3",
+                          "width": "fill_container",
+                          "height": 42,
+                          "fill": "#FFFFFF00",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "NC8jO",
+                              "name": "s3a",
+                              "fill": "$ink-muted",
+                              "content": "Default limit",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "text",
+                              "id": "IIXud",
+                              "name": "s3b",
+                              "fill": "$ink",
+                              "content": "10 recent",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "RhQeH",
+                  "name": "connection",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$surface-muted",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "0p27l",
+                      "name": "connectionTitle",
+                      "fill": "$ink",
+                      "content": "Linked account",
+                      "fontFamily": "Inter",
+                      "fontSize": 19,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OUMkj",
+                      "name": "connectionText",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Amazon is connected for order history retrieval. Transaction Link syncs read-only purchase data for the caretaker dashboard; the patient does not see this operational view.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "93286",
+                      "name": "refresh",
+                      "width": "fill_container",
+                      "height": 50,
+                      "fill": "$surface",
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$line"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "XTI2U",
+                          "name": "refreshText",
+                          "fill": "$ink",
+                          "content": "Manual sync fallback",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "j5GF3",
+      "x": 4560,
+      "y": 3360,
+      "name": "S13 Dashboard Orders Empty Syncing",
+      "width": 1440,
+      "height": 1024,
+      "fill": "$surface",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$line"
+      },
+      "layout": "vertical",
+      "gap": 28,
+      "padding": 40,
+      "children": [
+        {
+          "type": "frame",
+          "id": "nHctt",
+          "name": "Dashboard header",
+          "width": "fill_container",
+          "height": 136,
+          "fill": "#FFFFFF00",
+          "gap": 24,
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Ya3Km",
+              "name": "headCopy",
+              "width": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "KL6ts",
+                  "name": "eyebrow",
+                  "fill": "$accent",
+                  "content": "CARETAKER COMMAND CENTER",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "eWjaZ",
+                  "name": "title",
+                  "fill": "$ink",
+                  "content": "Waiting for Amazon orders",
+                  "lineHeight": 1.05,
+                  "fontFamily": "Inter",
+                  "fontSize": 46,
+                  "fontWeight": "750"
+                },
+                {
+                  "type": "text",
+                  "id": "3FY0j",
+                  "name": "subtitle",
+                  "fill": "$ink-muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Caretaker-only dashboard. The patient never sees this operations view; this state keeps the caretaker oriented while Knot webhooks arrive.",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Inter",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "wuvPC",
+              "name": "actions",
+              "fill": "#FFFFFF00",
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "xkoDq",
+                  "name": "syncing",
+                  "height": 42,
+                  "fill": "$warning-soft",
+                  "cornerRadius": 999,
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "m7Loo",
+                      "name": "syncDot",
+                      "width": 8,
+                      "height": 8,
+                      "fill": "$warning",
+                      "cornerRadius": 999
+                    },
+                    {
+                      "type": "text",
+                      "id": "xY7PN",
+                      "name": "syncText",
+                      "fill": "$warning",
+                      "content": "Sync pending",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "800"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "TvLSs",
+                  "name": "settings",
+                  "height": 42,
+                  "fill": "$ink",
+                  "cornerRadius": 8,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "aZKzM",
+                      "name": "settingsText",
+                      "fill": "$surface",
+                      "content": "Patient settings",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "800"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "mdFTT",
+                  "name": "rolePill2",
+                  "height": 42,
+                  "fill": "$blue-soft",
+                  "cornerRadius": 999,
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "X262o",
+                      "name": "rolePill2Text",
+                      "fill": "$ink-muted",
+                      "content": "Caretaker-only",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "800"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "8ZM6Z",
+          "name": "Dashboard empty orders state",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#FFFFFF00",
+          "gap": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "sVnsC",
+              "name": "left",
+              "width": 320,
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "7aLsL",
+                  "name": "summary",
+                  "width": "fill_container",
+                  "height": 260,
+                  "fill": "$surface-muted",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "74aJT",
+                      "name": "summaryTitle",
+                      "fill": "$ink",
+                      "content": "Amazon connection",
+                      "fontFamily": "Inter",
+                      "fontSize": 19,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xkzmO",
+                      "name": "summaryPill",
+                      "fill": "$accent-soft",
+                      "cornerRadius": 999,
+                      "gap": 8,
+                      "padding": [
+                        7,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "SvbfS",
+                          "name": "summaryDot",
+                          "width": 8,
+                          "height": 8,
+                          "fill": "$success",
+                          "cornerRadius": 999
+                        },
+                        {
+                          "type": "text",
+                          "id": "OwIPO",
+                          "name": "summaryStatus",
+                          "fill": "$success",
+                          "content": "Connected",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "RiBEi",
+                      "name": "summaryText",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Merchant: Amazon\nProduct: transaction_link\nAuthenticated: 10:43 AM\nOrders synced: 0",
+                      "lineHeight": 1.55,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JgvhV",
+                  "name": "steps",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Xhkyg",
+                      "name": "stepsTitle",
+                      "fill": "$ink",
+                      "content": "What happens next",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Q7Sth",
+                      "name": "stepsText",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "1. Knot sends NEW_TRANSACTIONS_AVAILABLE\n2. Server calls /transactions/sync\n3. Rows are upserted by transaction_id\n4. Dashboard poll renders orders",
+                      "lineHeight": 1.6,
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WhQcQ",
+              "name": "center",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "QA1Xi",
+                  "name": "Caretaker empty orders panel",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 18,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 22,
+                  "padding": 36,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "gJGph",
+                      "name": "emptyIconBox",
+                      "width": 72,
+                      "height": 72,
+                      "fill": "$warning-soft",
+                      "cornerRadius": 18,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "0lVl9",
+                          "name": "emptyIcon",
+                          "width": 34,
+                          "height": 34,
+                          "iconFontName": "receipt-text",
+                          "iconFontFamily": "lucide",
+                          "fill": "$warning"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "QX250",
+                      "name": "emptyTitle",
+                      "fill": "$ink",
+                      "content": "No Amazon orders on file yet",
+                      "fontFamily": "Inter",
+                      "fontSize": 32,
+                      "fontWeight": "850"
+                    },
+                    {
+                      "type": "text",
+                      "id": "DjZcr",
+                      "name": "emptyText",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "The account is linked, but no transaction rows have been synced into Supabase. Keep this panel visible so the caretaker knows the connection worked and data is pending.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Inter",
+                      "fontSize": 17,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ERNEu",
+                      "name": "emptyActions",
+                      "width": "fill_container",
+                      "height": 56,
+                      "fill": "#FFFFFF00",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "XBt24",
+                          "name": "manual",
+                          "height": "fill_container",
+                          "fill": "$accent",
+                          "cornerRadius": 9,
+                          "padding": [
+                            0,
+                            18
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "TSWHU",
+                              "name": "manualText",
+                              "fill": "$surface",
+                              "content": "Run manual sync",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "850"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "i544Q",
+                          "name": "settingsBtn",
+                          "height": "fill_container",
+                          "fill": "$surface-muted",
+                          "cornerRadius": 9,
+                          "stroke": {
+                            "thickness": 1,
+                            "fill": "$line"
+                          },
+                          "padding": [
+                            0,
+                            18
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "oh6aN",
+                              "name": "settingsBtnText",
+                              "fill": "$ink",
+                              "content": "Manage connection",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "850"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WEkV1",
+              "name": "right",
+              "width": 390,
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "jWo9T",
+                  "name": "timeline",
+                  "width": "fill_container",
+                  "height": 390,
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "3v31C",
+                      "name": "timelineTitle",
+                      "fill": "$ink",
+                      "content": "Sync timeline",
+                      "fontFamily": "Inter",
+                      "fontSize": 19,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "CD9d9",
+                      "name": "tl1",
+                      "width": "fill_container",
+                      "height": 62,
+                      "fill": "#FFFFFF00",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "HGCdp",
+                          "name": "tl1Dot",
+                          "width": 10,
+                          "height": 10,
+                          "fill": "$success",
+                          "cornerRadius": 999
+                        },
+                        {
+                          "type": "text",
+                          "id": "A3fQ7",
+                          "name": "tl1Text",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "AUTHENTICATED received at 10:43 AM",
+                          "lineHeight": 1.35,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "1PtqN",
+                      "name": "tl2",
+                      "width": "fill_container",
+                      "height": 62,
+                      "fill": "#FFFFFF00",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "A1ovc",
+                          "name": "tl2Dot",
+                          "width": 10,
+                          "height": 10,
+                          "fill": "$warning",
+                          "cornerRadius": 999
+                        },
+                        {
+                          "type": "text",
+                          "id": "Pleqx",
+                          "name": "tl2Text",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Waiting for NEW_TRANSACTIONS_AVAILABLE webhook",
+                          "lineHeight": 1.35,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "tuLwi",
+                      "name": "tl3",
+                      "width": "fill_container",
+                      "height": 62,
+                      "fill": "#FFFFFF00",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Q53am",
+                          "name": "tl3Dot",
+                          "width": 10,
+                          "height": 10,
+                          "fill": "$line",
+                          "cornerRadius": 999
+                        },
+                        {
+                          "type": "text",
+                          "id": "I1wjB",
+                          "name": "tl3Text",
+                          "fill": "$ink-muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Dashboard will populate after Supabase rows exist",
+                          "lineHeight": 1.35,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Ezm3c",
+      "x": 6080,
+      "y": 3360,
+      "name": "S14 Caretaker Dashboard Connect Amazon",
+      "width": 1440,
+      "height": 1024,
+      "fill": "$surface",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$line"
+      },
+      "layout": "vertical",
+      "gap": 28,
+      "padding": 40,
+      "children": [
+        {
+          "type": "frame",
+          "id": "jDtr1",
+          "name": "Caretaker dashboard header",
+          "width": "fill_container",
+          "height": 136,
+          "fill": "#FFFFFF00",
+          "gap": 24,
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "aNASJ",
+              "name": "headCopy",
+              "width": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "YlbT7",
+                  "name": "eyebrow",
+                  "fill": "$accent",
+                  "content": "CARETAKER-ONLY DASHBOARD",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "vj1cj",
+                  "name": "title",
+                  "fill": "$ink",
+                  "content": "Connect Amazon for order history",
+                  "lineHeight": 1.05,
+                  "fontFamily": "Inter",
+                  "fontSize": 46,
+                  "fontWeight": "750"
+                },
+                {
+                  "type": "text",
+                  "id": "sahag",
+                  "name": "subtitle",
+                  "fill": "$ink-muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "This dashboard is only for the caretaker. The patient does not need to see account linking, order history, proposals, alerts, or operational controls.",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Inter",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ep6fW",
+              "name": "actions",
+              "fill": "#FFFFFF00",
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "y96rC",
+                  "name": "role",
+                  "height": 42,
+                  "fill": "$blue-soft",
+                  "cornerRadius": 999,
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "ou5Ag",
+                      "name": "roleIcon",
+                      "width": 17,
+                      "height": 17,
+                      "iconFontName": "user-round-check",
+                      "iconFontFamily": "lucide",
+                      "fill": "$accent"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OmCRT",
+                      "name": "roleText",
+                      "fill": "$accent",
+                      "content": "Caretaker view",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "800"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "nvIvw",
+                  "name": "settings",
+                  "height": 42,
+                  "fill": "$ink",
+                  "cornerRadius": 8,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "r9gOe",
+                      "name": "settingsText",
+                      "fill": "$surface",
+                      "content": "Patient settings",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "800"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "vcvli",
+          "name": "Dashboard connect Amazon workspace",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#FFFFFF00",
+          "gap": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "9tO42",
+              "name": "left",
+              "width": 330,
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "XmUXI",
+                  "name": "roleCard",
+                  "width": "fill_container",
+                  "height": 236,
+                  "fill": "$surface-muted",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "sF5NY",
+                      "name": "roleTitle",
+                      "fill": "$ink",
+                      "content": "Role boundary",
+                      "fontFamily": "Inter",
+                      "fontSize": 19,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "fDy0g",
+                      "name": "roleText2",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Caretaker sees: account linking, order history, alerts, proposals, cameras.\n\nPatient sees: no dashboard. Nanny-cam devices only show camera console views.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "aFEbn",
+                  "name": "statusCard",
+                  "width": "fill_container",
+                  "height": 230,
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "05VL0",
+                      "name": "statusTitle",
+                      "fill": "$ink",
+                      "content": "Amazon account",
+                      "fontFamily": "Inter",
+                      "fontSize": 19,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "mtY3O",
+                      "name": "statusPill",
+                      "fill": "$danger-soft",
+                      "cornerRadius": 999,
+                      "gap": 8,
+                      "padding": [
+                        7,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "qeWWr",
+                          "name": "statusDot",
+                          "width": 8,
+                          "height": 8,
+                          "fill": "$danger",
+                          "cornerRadius": 999
+                        },
+                        {
+                          "type": "text",
+                          "id": "mKfE6",
+                          "name": "statusText",
+                          "fill": "$danger",
+                          "content": "Not connected",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "mNqAk",
+                      "name": "statusBody",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Connect Amazon with Knot Transaction Link to unlock SKU-level order history.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ITcHU",
+                  "name": "flowCard",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$accent-soft",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#B7E2D2"
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "S9ZDe",
+                      "name": "flowTitle",
+                      "fill": "$accent",
+                      "content": "After linking",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PwUjY",
+                      "name": "flowText",
+                      "fill": "$accent",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Knot webhook → transaction sync → Supabase → this dashboard panel updates on the next poll.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "dm4at",
+              "name": "center",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ZrkId",
+                  "name": "Account linking primary panel",
+                  "width": "fill_container",
+                  "height": 390,
+                  "fill": "$surface",
+                  "cornerRadius": 18,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#10201B1F",
+                    "offset": {
+                      "x": 0,
+                      "y": 18
+                    },
+                    "blur": 44,
+                    "spread": -28
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 28,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "kQWji",
+                      "name": "connectHead",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF00",
+                      "gap": 14,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "M6Kdd",
+                          "name": "amazonIconBox",
+                          "width": 56,
+                          "height": 56,
+                          "fill": "$warning-soft",
+                          "cornerRadius": 14,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "j8ili",
+                              "name": "amazonIcon",
+                              "width": 28,
+                              "height": 28,
+                              "iconFontName": "shopping-bag",
+                              "iconFontFamily": "lucide",
+                              "fill": "$warning"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Dl22c",
+                          "name": "connectTitleWrap",
+                          "width": "fill_container",
+                          "fill": "#FFFFFF00",
+                          "layout": "vertical",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "2AP1u",
+                              "name": "connectTitle",
+                              "fill": "$ink",
+                              "content": "Link the patient's Amazon account",
+                              "fontFamily": "Inter",
+                              "fontSize": 28,
+                              "fontWeight": "850"
+                            },
+                            {
+                              "type": "text",
+                              "id": "u5vtA",
+                              "name": "connectSub",
+                              "fill": "$ink-muted",
+                              "content": "Read-only transaction history through Knot Transaction Link.",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "RmrxR",
+                      "name": "connectText",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "The caretaker starts account linking from this dashboard. The patient does not interact with this flow or see the resulting order-history panel.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qJxdL",
+                      "name": "connectActions",
+                      "width": "fill_container",
+                      "height": 58,
+                      "fill": "#FFFFFF00",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "IUy7B",
+                          "name": "connectBtn",
+                          "height": "fill_container",
+                          "fill": "$accent",
+                          "cornerRadius": 9,
+                          "gap": 10,
+                          "padding": [
+                            0,
+                            20
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "wgoyx",
+                              "name": "connectBtnIcon",
+                              "width": 19,
+                              "height": 19,
+                              "iconFontName": "link",
+                              "iconFontFamily": "lucide",
+                              "fill": "$surface"
+                            },
+                            {
+                              "type": "text",
+                              "id": "EWjA3",
+                              "name": "connectBtnText",
+                              "fill": "$surface",
+                              "content": "Connect Amazon account",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "850"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "UtPFV",
+                          "name": "learnBtn",
+                          "height": "fill_container",
+                          "fill": "$surface-muted",
+                          "cornerRadius": 9,
+                          "stroke": {
+                            "thickness": 1,
+                            "fill": "$line"
+                          },
+                          "padding": [
+                            0,
+                            18
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "DTXPV",
+                              "name": "learnBtnText",
+                              "fill": "$ink",
+                              "content": "View privacy details",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "850"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FjRhW",
+                      "name": "connectFoot",
+                      "width": "fill_container",
+                      "fill": "$accent-soft",
+                      "cornerRadius": 12,
+                      "gap": 10,
+                      "padding": 14,
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "38GsG",
+                          "name": "connectFootIcon",
+                          "width": 20,
+                          "height": 20,
+                          "iconFontName": "lock-keyhole",
+                          "iconFontFamily": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "YnJpd",
+                          "name": "connectFootText",
+                          "fill": "$accent",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "No credentials stored by Okay Today. Knot returns order data after Amazon authentication.",
+                          "lineHeight": 1.35,
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "KmYQZ",
+                  "name": "Order history locked panel",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 18,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 18,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yPGxu",
+                      "name": "historyHead",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF00",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Ndo0t",
+                          "name": "historyTitle",
+                          "fill": "$ink",
+                          "content": "Account transaction history",
+                          "fontFamily": "Inter",
+                          "fontSize": 22,
+                          "fontWeight": "850"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "IMdfB",
+                          "name": "historyPill",
+                          "fill": "$surface-muted",
+                          "cornerRadius": 999,
+                          "stroke": {
+                            "thickness": 1,
+                            "fill": "$line"
+                          },
+                          "padding": [
+                            7,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "knrgN",
+                              "name": "historyPillText",
+                              "fill": "$ink-muted",
+                              "content": "Locked until linked",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ovbbt",
+                      "name": "locked",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "fill": "$surface-muted",
+                      "cornerRadius": 16,
+                      "layout": "vertical",
+                      "gap": 18,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "uG8Lf",
+                          "name": "lockIconBox",
+                          "width": 68,
+                          "height": 68,
+                          "fill": "$surface",
+                          "cornerRadius": 18,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "KrOJm",
+                              "name": "lockIcon",
+                              "width": 32,
+                              "height": 32,
+                              "iconFontName": "receipt-text",
+                              "iconFontFamily": "lucide",
+                              "fill": "$ink-muted"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "8jbkH",
+                          "name": "lockedTitle",
+                          "fill": "$ink",
+                          "content": "No orders visible yet",
+                          "fontFamily": "Inter",
+                          "fontSize": 26,
+                          "fontWeight": "850"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LdSaS",
+                          "name": "lockedText",
+                          "fill": "$ink-muted",
+                          "textGrowth": "fixed-width",
+                          "width": 560,
+                          "content": "Connect Amazon to show item names, quantities, dates, statuses, and totals here on the caretaker dashboard.",
+                          "lineHeight": 1.4,
+                          "textAlign": "center",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "C9waC",
+              "name": "right",
+              "width": 390,
+              "height": "fill_container",
+              "fill": "#FFFFFF00",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "DhJFq",
+                  "name": "info",
+                  "width": "fill_container",
+                  "height": 270,
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$line"
+                  },
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "C3Xq0",
+                      "name": "infoTitle",
+                      "fill": "$ink",
+                      "content": "Patient-safe product boundary",
+                      "fontFamily": "Inter",
+                      "fontSize": 19,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "613HD",
+                      "name": "infoText",
+                      "fill": "$ink-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "The patient is not asked to manage Amazon, Knot, proposals, or alerts. This is an operator screen for the caretaker only.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "variables": {

@@ -7,29 +7,43 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="page-shell narrow">
-      <header class="page-title-block">
-        <h1>Bind This Camera</h1>
-        <p class="muted">
-          Show this code (or QR) to the caretaker. They scan or type it on their dashboard to connect this camera.
-        </p>
-      </header>
+    <div class="page-shell">
+      <div class="top-bar">
+        <div class="nav-brand">
+          <span>&#9670;</span>
+          Caretaker Command Center
+        </div>
+        <span class="route-pill">/bind</span>
+      </div>
 
-      <section class="panel bind-panel">
-        <p class="muted">Pairing code</p>
-        <p id="pair-code" class="pair-code">······</p>
-        <p class="muted pair-help">
-          On the caretaker dashboard, paste this code into <em>Pair a nanny cam</em>.
-        </p>
+      <div class="two-col-layout">
+        <div class="intro-col bind-intro">
+          <p class="eyebrow">Camera pairing</p>
+          <h1>Bind This Camera</h1>
+          <p>
+            Show this code (or QR) to the caretaker. They scan or type it on their dashboard to connect this camera.
+          </p>
+          <p class="muted">
+            Keep this page open. Once paired, it will automatically redirect to the camera feed.
+          </p>
+          <p id="bind-role" class="muted"></p>
+        </div>
 
-        <details class="bind-qr-details">
-          <summary>Show QR instead</summary>
-          <div id="qr-wrap" class="qr-wrap"></div>
-        </details>
+        <div class="pairing-card">
+          <p class="muted" style="margin:0;font-size:0.82rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em">Pairing code</p>
+          <p id="pair-code" class="pair-code">&middot;&middot;&middot;&middot;&middot;&middot;</p>
+          <p class="pair-help">
+            On the caretaker dashboard, paste this code into <em>Pair a nanny cam</em>.
+          </p>
 
-        <p id="bind-role" class="muted"></p>
-        <p id="bind-status" class="bind-status">Status: Waiting for caretaker to pair…</p>
-      </section>
+          <details class="bind-qr-details">
+            <summary>Show QR instead</summary>
+            <div id="qr-wrap" class="qr-wrap"></div>
+          </details>
+
+          <p id="bind-status" class="bind-status">Status: Waiting for caretaker to pair&hellip;</p>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="/bind.js"></script>

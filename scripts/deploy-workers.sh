@@ -22,8 +22,18 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=accept-new "$TARGET" '
   set -e
   cd ~/hack_pton
   sed -i "s/\r\$//" .env ecosystem.workers.config.cjs 2>/dev/null || true
+
+  # Verify Bun is available — the Photon agent requires Bun, not Node.
+  if ! command -v bun >/dev/null 2>&1; then
+    echo "ERROR: bun not found. Install Bun before deploying the Photon agent."
+    echo "  curl -fsSL https://bun.sh/install | bash"
+    echo "  Then add ~/.bun/bin to PATH in ~/.bashrc and re-login."
+    exit 1
+  fi
+  echo "→ bun version: $(bun --version)"
+
   npm install --omit=dev
-  npx pm2 delete caretaker-worker caretaker-notifier 2>/dev/null || true
+  npx pm2 delete caretaker-worker caretaker-notifier caretaker-photon-agent 2>/dev/null || true
   npx pm2 flush 2>/dev/null || true
   npx pm2 start ecosystem.workers.config.cjs
   npx pm2 save
@@ -39,6 +49,11 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=accept-new "$TARGET" '
   echo "--- worker /health ---"
   curl -sS -m 3 http://127.0.0.1:3031/health || echo "WARN: worker health did not respond"
   echo
+  echo "--- notifier /health ---"
+  curl -sS -m 3 http://127.0.0.1:3040/health || echo "WARN: notifier health did not respond"
+  echo
+  echo "--- recent photon-agent log (post-flush) ---"
+  npx pm2 logs caretaker-photon-agent --lines 10 --nostream 2>&1 | tail -15
   echo "--- recent error log (post-flush) ---"
   npx pm2 logs caretaker-worker --lines 10 --nostream --err 2>&1 | tail -15
 '

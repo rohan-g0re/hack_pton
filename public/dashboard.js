@@ -8,9 +8,31 @@ function renderSubtitle(data) {
   el.textContent = `Monitoring ${data.patient.name}${rel ? ` (${rel})` : ""}.`;
 }
 
+const PHOTON_STATUS_LABELS = {
+  not_configured: "iMessage: not configured",
+  invited: "iMessage: invite sent — awaiting acceptance",
+  thread_open: "iMessage: thread open",
+  sendable: "iMessage: ready",
+  onboarding_blocked: "iMessage: onboarding required",
+  failed: "iMessage: delivery errors"
+};
+
+const PHOTON_STATUS_CLASSES = {
+  not_configured: "status-offline",
+  invited: "status-stale",
+  thread_open: "status-online",
+  sendable: "status-success",
+  onboarding_blocked: "status-warning",
+  failed: "status-critical"
+};
+
 function renderProfile(data) {
   const target = document.getElementById("profile-summary");
   const card = data.paymentCard || { brand: "—", last4: "—", status: "—" };
+  const ps = data.caretaker.photonStatus || "not_configured";
+  const psLabel = PHOTON_STATUS_LABELS[ps] || escapeHtml(ps);
+  const psClass = PHOTON_STATUS_CLASSES[ps] || "";
+  const lastError = data.caretaker.photonLastError ? `<p class="muted" style="color:var(--color-warning)">Last alert error: ${escapeHtml(data.caretaker.photonLastError.slice(0, 120))}</p>` : "";
   target.innerHTML = `
     <p><strong>Caretaker:</strong> ${escapeHtml(data.caretaker.name)}</p>
     <p class="muted">Phone: ${escapeHtml(data.caretaker.phone)}</p>
@@ -18,6 +40,8 @@ function renderProfile(data) {
     <p class="muted">Relationship: ${escapeHtml(data.patient.relationship || "—")}</p>
     <p><strong>Payment card:</strong> ${escapeHtml(card.brand)} ending ${escapeHtml(card.last4)}</p>
     <p class="muted">Status: ${escapeHtml(card.status)}</p>
+    <p><span class="status-pill ${escapeHtml(psClass)}">${escapeHtml(psLabel)}</span></p>
+    ${lastError}
   `;
 }
 
@@ -145,17 +169,36 @@ function renderProposals(data) {
   });
 }
 
+const NOTIF_STATUS_LABELS = {
+  pending: "alert queued",
+  sent: "alert sent",
+  delivered: "alert delivered",
+  failed: "alert failed",
+  blocked: "alert blocked — onboarding required"
+};
+
 function renderEvents(data) {
   const target = document.getElementById("event-list");
   target.innerHTML = "";
+
+  // Index notifications by event id for O(1) lookup
+  const notifByEvent = {};
+  (data.notifications || []).forEach(n => {
+    if (!notifByEvent[n.relatedEventId]) notifByEvent[n.relatedEventId] = n;
+  });
+
   data.events.slice(0, 12).forEach((event) => {
     const item = document.createElement("article");
     item.className = "card event-card";
     const sev = escapeHtml(event.severity);
+    const notif = notifByEvent[event.id];
+    const notifHtml = notif
+      ? `<span class="status-pill" style="font-size:0.7rem">${escapeHtml(NOTIF_STATUS_LABELS[notif.deliveryStatus] || notif.deliveryStatus)}</span>`
+      : "";
     item.innerHTML = `
       <div class="card-row">
         <div>
-          <p class="event-severity">[${sev}] ${escapeHtml(event.title)}</p>
+          <p class="event-severity">[${sev}] ${escapeHtml(event.title)} ${notifHtml}</p>
           <p class="muted">${escapeHtml(event.message)}</p>
         </div>
         <span class="muted time">${escapeHtml(new Date(event.createdAt).toLocaleTimeString())}</span>
@@ -174,7 +217,7 @@ async function loadState() {
   renderInventoryReadOnly(data);
   renderPrescriptionsReadOnly(data);
   renderProposals(data);
-  renderEvents(data);
+  renderEvents(data); // passes data.notifications internally via notifByEvent lookup
 }
 
 function showToast(message) {

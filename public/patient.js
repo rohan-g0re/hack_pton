@@ -94,12 +94,12 @@ function renderMerchantList() {
       <span style="flex:1"><strong>${escapeHtml(m.name)}</strong>
         <span class="status-pill" style="font-size:0.7rem;margin-left:0.5rem">${escapeHtml(m.category)}</span>
       </span>
-      <span class="muted" style="font-size:0.8rem">${m.type === "card_switcher" ? "Card management" : "Shopping"}</span>
+      <span class="muted" style="font-size:0.8rem">${m.type === "card_switcher" ? "Card management" : "Order history"}</span>
       <button type="button" class="button" style="padding:0.3rem 0.75rem;font-size:0.85rem"
         data-merchant-id="${escapeHtml(String(m.id))}"
         data-merchant-name="${escapeHtml(m.name)}"
         data-merchant-type="${escapeHtml(m.type)}">
-        Link →
+        Connect
       </button>
     </div>
   `).join("");
@@ -107,20 +107,19 @@ function renderMerchantList() {
   container.querySelectorAll("[data-merchant-id]").forEach(btn => {
     btn.addEventListener("click", () => openKnotSDK({
       merchantId: Number(btn.dataset.merchantId),
-      merchantName: btn.dataset.merchantName,
-      merchantType: btn.dataset.merchantType
+      merchantName: btn.dataset.merchantName
     }));
   });
 }
 
-async function openKnotSDK({ merchantId, merchantName, merchantType }) {
+async function openKnotSDK({ merchantId, merchantName }) {
   const hint = document.getElementById("knot-hint");
-  hint.textContent = `Opening Knot for ${merchantName}…`;
+  hint.textContent = `Opening Knot for ${merchantName} order history...`;
 
   try {
     const init = await request("/api/knot/session", {
       method: "POST",
-      body: JSON.stringify({ merchantId })
+      body: JSON.stringify({ merchantId, purpose: "order_history" })
     });
 
     const KnotapiJS = window.KnotapiJS?.default || window.KnotapiJS;
@@ -140,7 +139,7 @@ async function openKnotSDK({ merchantId, merchantName, merchantType }) {
       useSearch: init.sessionType !== "card_switcher",
       locale: "en-US",
       onSuccess: () => {
-        hint.textContent = `${merchantName} account linked!`;
+        hint.textContent = `${merchantName} order history connected!`;
         loadKnotMerchants();
       },
       onError: (code, desc) => {
@@ -166,6 +165,30 @@ async function openKnotSDK({ merchantId, merchantName, merchantType }) {
   }
 }
 
+const PHOTON_STATUS_HINTS = {
+  not_configured: "Add the caretaker in your Photon dashboard and set PHOTON_PROJECT_ID.",
+  invited: "Awaiting invite acceptance. Recipient must accept the Photon email and receive the first bot message.",
+  thread_open: "Thread open. Run the smoke test (bun scripts/smoke-photon.ts) to confirm delivery.",
+  sendable: "Ready. iMessage alerts will be delivered when medication events occur.",
+  onboarding_blocked: "Blocked — recipient must accept the Photon invite and receive the first bot message.",
+  failed: "Repeated delivery errors. Check PM2 logs for the caretaker-photon-agent process."
+};
+
+function renderPhotonStatus(caretaker) {
+  const el = document.getElementById("photon-readiness");
+  if (!el) return;
+  const ps = caretaker.photonStatus || "not_configured";
+  const hint = PHOTON_STATUS_HINTS[ps] || ps;
+  const lastError = caretaker.photonLastError
+    ? `<p class="muted" style="font-size:0.8rem;color:var(--color-warning)">Last error: ${escapeHtml(caretaker.photonLastError.slice(0, 200))}</p>`
+    : "";
+  el.innerHTML = `
+    <p><strong>iMessage alert status:</strong> <span class="status-pill">${escapeHtml(ps.replace(/_/g, " "))}</span></p>
+    <p class="muted" style="font-size:0.85rem">${escapeHtml(hint)}</p>
+    ${lastError}
+  `;
+}
+
 async function hydrate() {
   const data = await request("/api/state");
   document.getElementById("patient-title").textContent = `Settings for ${data.patient.name}`;
@@ -178,6 +201,7 @@ async function hydrate() {
   wireRemoveButtons(rx);
 
   renderCardSummary(data.paymentCard || { brand: "—", last4: "—", status: "—" });
+  renderPhotonStatus(data.caretaker);
   loadKnotMerchants().catch(() => {});
 }
 

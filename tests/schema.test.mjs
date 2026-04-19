@@ -7,6 +7,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const migrationPath = path.join(dirname, "../supabase/migrations/001_initial_schema.sql");
+const migration004Path = path.join(dirname, "../supabase/migrations/004_photon_alert_outbox.sql");
 
 test("migration file defines all core tables and camera uniqueness", () => {
   const sql = fs.readFileSync(migrationPath, "utf8");
@@ -28,6 +29,44 @@ test("migration file defines all core tables and camera uniqueness", () => {
     assert.match(sql, new RegExp(`create table if not exists public.${table}`, "i"));
   }
   assert.match(sql, /unique \(patient_id, role\)/i);
+});
+
+test("migration 001: notifications delivery_status allows pending status", () => {
+  const sql = fs.readFileSync(migrationPath, "utf8");
+  assert.match(sql, /delivery_status in.*pending/i);
+});
+
+test("migration 004: defines photon_outbox table", () => {
+  const sql = fs.readFileSync(migration004Path, "utf8");
+  assert.match(sql, /create table if not exists public\.photon_outbox/i);
+});
+
+test("migration 004: defines claim_photon_outbox function", () => {
+  const sql = fs.readFileSync(migration004Path, "utf8");
+  assert.match(sql, /create or replace function public\.claim_photon_outbox/i);
+});
+
+test("migration 004: photon_outbox status constraint includes all valid states", () => {
+  const sql = fs.readFileSync(migration004Path, "utf8");
+  for (const status of ["pending", "sending", "sent", "failed", "blocked"]) {
+    assert.match(sql, new RegExp(status));
+  }
+});
+
+test("migration 004: adds photon_status column to caretakers", () => {
+  const sql = fs.readFileSync(migration004Path, "utf8");
+  assert.match(sql, /add column if not exists photon_status/i);
+});
+
+test("migration 004: notifications adds blocked status and resets default to pending", () => {
+  const sql = fs.readFileSync(migration004Path, "utf8");
+  assert.match(sql, /alter column delivery_status set default 'pending'/i);
+  assert.match(sql, /blocked/);
+});
+
+test("migration 004: adds acknowledged column to events", () => {
+  const sql = fs.readFileSync(migration004Path, "utf8");
+  assert.match(sql, /add column if not exists acknowledged/i);
 });
 
 test("seed file inserts demo caretaker and patient", () => {

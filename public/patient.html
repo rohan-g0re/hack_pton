@@ -8,55 +8,80 @@
   </head>
   <body>
     <div class="page-shell">
-      <a class="back-link" href="/dashboard">← Back to Dashboard</a>
+      <div class="top-bar">
+        <a class="back-btn" href="/dashboard">&#8592; Dashboard</a>
+        <span class="route-pill">/settings</span>
+      </div>
 
-      <header class="page-title-block">
-        <h1 id="patient-title">Patient settings</h1>
+      <header class="settings-header">
+        <div>
+          <p class="eyebrow">Patient configuration</p>
+          <h1 id="patient-title">Patient settings</h1>
+          <p>Manage inventory, prescriptions, merchant accounts, and payment card.</p>
+        </div>
       </header>
 
-      <section class="panel wide">
-        <div class="panel-heading">
-          <h2>Pantry inventory</h2>
-        </div>
-        <p class="muted section-lead">What groceries should the patient have?</p>
-        <div id="inventory-rows" class="stack gap-sm"></div>
-        <div class="settings-actions">
-          <button type="button" class="button button-secondary" id="add-inventory">+ Add Item</button>
-          <button type="button" class="button" id="save-inventory">Save Inventory</button>
-        </div>
-      </section>
+      <div class="settings-workspace">
+        <!-- Left: inventory + medications -->
+        <div class="settings-left">
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Pantry inventory</h2>
+            </div>
+            <p class="muted">What groceries should the patient have?</p>
+            <div id="inventory-rows" class="stack gap-sm"></div>
+            <div class="settings-actions">
+              <button type="button" class="button button-secondary" id="add-inventory">+ Add Item</button>
+              <button type="button" class="button" id="save-inventory">Save Inventory</button>
+            </div>
+          </section>
 
-      <section class="panel wide">
-        <div class="panel-heading">
-          <h2>Medication schedule</h2>
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Medication schedule</h2>
+            </div>
+            <p class="muted">What medicines should the patient take?</p>
+            <div id="prescription-rows" class="stack gap-sm"></div>
+            <div class="settings-actions">
+              <button type="button" class="button button-secondary" id="add-prescription">+ Add Medication</button>
+              <button type="button" class="button" id="save-prescriptions">Save Prescriptions</button>
+            </div>
+          </section>
         </div>
-        <p class="muted section-lead">What medicines should the patient take?</p>
-        <div id="prescription-rows" class="stack gap-sm"></div>
-        <div class="settings-actions">
-          <button type="button" class="button button-secondary" id="add-prescription">+ Add Medication</button>
-          <button type="button" class="button" id="save-prescriptions">Save Prescriptions</button>
-        </div>
-      </section>
 
-      <section class="panel wide">
-        <div class="panel-heading">
-          <h2>Grocery ordering — Knot</h2>
-        </div>
-        <p class="muted section-lead">Link merchant accounts so Knot can automatically place orders and manage subscriptions.</p>
-        <div id="knot-merchant-list" class="stack gap-sm">
-          <p class="muted">Loading merchants…</p>
-        </div>
-        <p class="form-hint" id="knot-hint"></p>
-      </section>
+        <!-- Right: Knot + payment -->
+        <div class="settings-right">
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Amazon order history &mdash; Knot</h2>
+            </div>
+            <p class="muted">Connect the patient's Amazon account so caretakers can review recent order history.</p>
+            <div id="knot-merchant-list" class="stack gap-sm">
+              <p class="muted">Loading merchants&hellip;</p>
+            </div>
+            <p class="form-hint" id="knot-hint"></p>
+          </section>
 
-      <section class="panel wide">
-        <div class="panel-heading">
-          <h2>Payment card</h2>
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>iMessage alerts</h2>
+            </div>
+            <p class="muted">Photon iMessage alert readiness for the caretaker's phone.</p>
+            <div id="photon-readiness">
+              <p class="muted">Loading&hellip;</p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>Payment card</h2>
+            </div>
+            <p class="muted">Card on file for Knot grocery orders.</p>
+            <div id="card-summary" class="card knot-placeholder"></div>
+            <button type="button" class="button" id="update-card">Update Card</button>
+          </section>
         </div>
-        <p class="muted section-lead">Card on file for Knot grocery orders.</p>
-        <div id="card-summary" class="card knot-placeholder"></div>
-        <button type="button" class="button" id="update-card">Update Card</button>
-      </section>
+      </div>
     </div>
 
     <script src="https://unpkg.com/knotapi-js@next"></script>

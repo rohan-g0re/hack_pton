@@ -271,7 +271,8 @@ export function createApp() {
         const { session: sessionId, sessionType } = await createKnotSession({
           externalUserId,
           merchantId,
-          patientId
+          patientId,
+          purpose: body.purpose
         });
         json(response, 200, {
           sessionId,

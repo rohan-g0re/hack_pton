@@ -8,31 +8,85 @@
   </head>
   <body>
     <div class="page-shell">
-      <header class="welcome-header">
-        <p class="eyebrow">Hack Princeton 2026</p>
-        <h1>Caretaker Command Center</h1>
-        <p class="welcome-subtitle">
-          Remote pantry monitoring and medication adherence for elderly family members.
-        </p>
-      </header>
+      <nav class="top-nav">
+        <a class="nav-brand" href="/">
+          <span>&#9670;</span>
+          Caretaker Command Center
+        </a>
+        <div class="nav-actions">
+          <a class="back-btn" href="/dashboard">Dashboard</a>
+          <a class="back-btn" href="/camera">Setup Camera</a>
+        </div>
+      </nav>
 
-      <div class="role-grid">
+      <div class="welcome-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Hack Princeton 2026</p>
+          <h1>Remote care, made&nbsp;simple.</h1>
+          <p>
+            Monitor your patient's pantry and medication adherence from anywhere.
+            AI-powered alerts, automatic grocery orders, and real-time camera feeds.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="/register">Get Started as Caretaker</a>
+            <a class="button button-secondary" href="/camera">Set Up a Camera</a>
+          </div>
+        </div>
+
+        <div class="workflow-preview" aria-hidden="true">
+          <div class="workflow-preview-inner">
+            <div class="preview-row">
+              <div class="preview-row-icon">&#128247;</div>
+              <div class="preview-row-text">
+                <strong>Pantry Cam</strong>
+                Last scan: 2 minutes ago
+              </div>
+              <span class="status-pill status-live" style="margin-left:auto">Live</span>
+            </div>
+            <div class="preview-row">
+              <div class="preview-row-icon">&#128138;</div>
+              <div class="preview-row-text">
+                <strong>Medication Alert</strong>
+                Metformin taken at 8:04 AM
+              </div>
+              <span class="status-pill status-success" style="margin-left:auto">OK</span>
+            </div>
+            <div class="preview-row">
+              <div class="preview-row-icon">&#128722;</div>
+              <div class="preview-row-text">
+                <strong>Purchase Proposal</strong>
+                Orange juice — low stock
+              </div>
+              <span class="status-pill status-awaiting-approval" style="margin-left:auto">Review</span>
+            </div>
+            <div class="preview-row">
+              <div class="preview-row-icon">&#9889;</div>
+              <div class="preview-row-text">
+                <strong>Event Feed</strong>
+                3 new events today
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-chooser">
         <a class="role-card" href="/register">
-          <span class="role-card-icon" aria-hidden="true">◆</span>
+          <div class="role-card-icon" aria-hidden="true">&#9670;</div>
           <h2>I'm the Caretaker</h2>
-          <p>Monitor your patient's pantry and medication from anywhere.</p>
-          <span class="button role-card-cta">Get Started →</span>
+          <p>Monitor your patient's pantry and medication from anywhere. View camera feeds, approve grocery orders, and get iMessage alerts.</p>
+          <span class="button role-card-cta">Get Started &#8594;</span>
         </a>
         <a class="role-card" href="/camera">
-          <span class="role-card-icon" aria-hidden="true">◎</span>
+          <div class="role-card-icon" aria-hidden="true">&#9711;</div>
           <h2>This device is a Nanny Cam</h2>
-          <p>Set up this phone or laptop as a pantry or medicine camera.</p>
-          <span class="button role-card-cta">Set Up Cam →</span>
+          <p>Set up this phone or laptop as a pantry or medicine camera. Point it at the shelf and it will send automatic snapshots.</p>
+          <span class="button button-secondary role-card-cta">Set Up Cam &#8594;</span>
         </a>
       </div>
 
       <p class="tech-strip">
-        Built with Gemini ER 1.6 · Knot API · Photon · Supabase · AWS
+        Built with Gemini 1.6 Flash &middot; Knot API &middot; Photon &middot; Supabase &middot; AWS
       </p>
     </div>
   </body>

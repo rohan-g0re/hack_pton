@@ -1,26 +1,44 @@
 import { callRoboticsER } from "./gemini-client.mjs";
 import { fetchImageBytes } from "./s3-fetch.mjs";
 import { prescriptionsDueNow } from "./medicine-analysis.mjs";
+import { shouldSendImmediate, buildMedicationAlertMessage } from "../photon/message-templates.mjs";
+import { enqueueAlert } from "../photon/outbox.mjs";
+import { normalizePhone } from "../photon/config.mjs";
 
-async function notifyPhoton(client, { caretakerPhone, message, eventId }) {
-  const base = process.env.PHOTON_NOTIFY_URL || "http://127.0.0.1:3040";
-  try {
-    const res = await fetch(`${base.replace(/\/$/, "")}/notify`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ caretaker_phone: caretakerPhone, message, event_id: eventId })
-    });
-    if (res.ok) return;
-  } catch { /* fall through to durable failure record */ }
+async function notifyPhoton(client, { caretakerPhone, adherence, patientName, missedMedications, eventId, capturedAt }) {
+  if (!shouldSendImmediate(adherence)) return;
 
-  await client.from("notifications").insert({
-    event_id: eventId,
-    channel: "photon_imessage",
-    recipient: caretakerPhone,
-    message,
-    delivery_status: "failed",
-    sent_at: new Date().toISOString()
+  const phone = normalizePhone(caretakerPhone);
+  if (!phone) {
+    console.warn(`[medicine] caretaker phone not valid E.164, skipping alert: ${caretakerPhone}`);
+    return;
+  }
+
+  const alertMessage = buildMedicationAlertMessage({
+    adherence,
+    patientName,
+    missedMedications,
+    eventId,
+    capturedAt
   });
+
+  if (!alertMessage) return;
+
+  try {
+    await enqueueAlert(client, { phone, message: alertMessage, eventId });
+  } catch (err) {
+    console.error(`[medicine] Failed to enqueue Photon alert for event ${eventId}:`, err.message);
+    // Record a failed notification so the dashboard reflects the failure.
+    try {
+      await client.from("notifications").insert({
+        event_id: eventId,
+        channel: "photon_imessage",
+        recipient: phone,
+        message: alertMessage,
+        delivery_status: "failed"
+      });
+    } catch { /* best-effort */ }
+  }
 }
 
 function buildMedicinePrompt(prescriptions, capturedAt) {
@@ -177,13 +195,20 @@ export async function processMedicineSnapshot(client, snapshotRow, cameraRow, ca
     .single();
   if (eventRes.error) throw eventRes.error;
 
-  if (adherence !== "outside_window" && adherence !== "taken") {
-    await notifyPhoton(client, {
-      caretakerPhone: caretakerRow.phone,
-      message,
-      eventId: eventRes.data.id
-    });
-  }
+  const patientName = caretakerRow.patientName || caretakerRow.patient_name || "the patient";
+  const missedMedications = calls
+    .filter(c => (c.function || c.name) === "medication_not_taken")
+    .map(c => Array.isArray(c.args) ? c.args[0] : c.args?.name)
+    .filter(Boolean);
+
+  await notifyPhoton(client, {
+    caretakerPhone: caretakerRow.phone,
+    adherence,
+    patientName,
+    missedMedications,
+    eventId: eventRes.data.id,
+    capturedAt
+  });
 
   await client.from("snapshots").update({ processed: true }).eq("id", snapshotRow.id);
 

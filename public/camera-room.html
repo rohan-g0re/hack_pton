@@ -7,21 +7,43 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="camera-shell">
-      <header class="camera-header">
-        <div>
-          <p class="eyebrow" id="cam-eyebrow">Nanny Cam Active</p>
-          <h1 id="camera-title">Nanny Cam</h1>
-          <p id="camera-subtitle" class="muted"></p>
+    <div class="cam-shell">
+      <!-- Status bar -->
+      <div class="device-status-bar">
+        <div class="device-identity">
+          <div>
+            <p class="eyebrow" id="cam-eyebrow">Nanny Cam Active</p>
+            <h1 id="camera-title">Nanny Cam</h1>
+          </div>
+          <span id="camera-role-badge" class="status-pill"></span>
         </div>
-        <a class="button button-secondary" href="/dashboard">← Dashboard</a>
-      </header>
+        <div class="bar-right">
+          <p id="camera-subtitle" class="muted" style="margin:0;font-size:0.85rem"></p>
+          <a class="back-btn" href="/dashboard">&#8592; Dashboard</a>
+        </div>
+      </div>
 
-      <main class="camera-layout">
-        <section class="panel">
+      <!-- Dark preview block -->
+      <div class="camera-preview-block">
+        <div class="video-top-bar">
+          <span>LIVE PREVIEW</span>
+          <span class="status-pill status-live" style="background:rgba(11,107,86,0.3);border-color:rgba(11,107,86,0.4);color:#6ee7c0">Browser</span>
+        </div>
+        <video id="video-preview" autoplay muted playsinline class="camera-preview"></video>
+        <div class="scene-response">
+          <p class="snapshot-heading">Last response from server</p>
+          <pre id="snapshot-result" class="result-box"></pre>
+        </div>
+        <p class="camera-https-note">
+          Camera access requires HTTPS. Open this page at <strong style="color:rgba(255,255,255,0.6)">https://okaytoday.health</strong>
+        </p>
+      </div>
+
+      <!-- Controls tray -->
+      <div class="controls-tray">
+        <section class="panel setup-panel">
           <div class="panel-heading">
             <h2>Device setup</h2>
-            <span id="camera-role-badge" class="status-pill"></span>
           </div>
           <form id="register-form" class="stack gap-md">
             <label>
@@ -30,38 +52,34 @@
             </label>
             <button class="button" type="submit">Register device</button>
           </form>
-          <p id="register-result" class="muted"></p>
+          <p id="register-result" class="muted" style="margin-top:10px;font-size:0.85rem"></p>
         </section>
 
-        <section class="panel">
-          <div class="panel-heading">
-            <h2>Live preview</h2>
-            <span class="status-pill status-live">Browser</span>
-          </div>
-          <video id="video-preview" autoplay muted playsinline class="camera-preview"></video>
-          <p class="muted">
-            Camera access requires HTTPS. Open this page at <strong>https://okaytoday.health</strong>.
-          </p>
-        </section>
-
-        <section class="panel wide">
+        <section class="panel capture-panel">
           <div class="panel-heading">
             <h2>Snapshot controls</h2>
             <span id="auto-badge" class="status-pill">Auto off</span>
           </div>
-          <p class="muted">Auto-capture sends a snapshot every 10 seconds after registration.</p>
-          <div class="camera-actions">
+          <p class="muted" style="font-size:0.85rem">Auto-capture sends a snapshot every 10 seconds after registration.</p>
+          <div class="camera-actions" style="margin-top:10px">
             <button id="send-snapshot" type="button" class="button">Send snapshot now</button>
             <button id="toggle-auto" type="button" class="button button-secondary">Start 10s auto mode</button>
           </div>
-          <p class="muted">
-            <span id="snap-count">Snapshots sent: 0</span> ·
-            <span id="last-sent">Last sent: —</span>
+          <p class="muted" style="margin-top:12px;font-size:0.82rem">
+            <span id="snap-count">Snapshots sent: 0</span>
+            &nbsp;&middot;&nbsp;
+            <span id="last-sent">Last sent: &mdash;</span>
           </p>
-          <h3 class="snapshot-heading">Last response from server</h3>
-          <pre id="snapshot-result" class="result-box"></pre>
         </section>
-      </main>
+
+        <section class="panel server-panel">
+          <div class="panel-heading">
+            <h2>Server</h2>
+            <span class="status-pill status-success">Connected</span>
+          </div>
+          <p class="muted" style="font-size:0.85rem">Responses from the AI analysis pipeline will appear here.</p>
+        </section>
+      </div>
     </div>
 
     <script type="module" src="/camera-room.js"></script>
