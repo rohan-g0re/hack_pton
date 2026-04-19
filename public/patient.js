@@ -94,12 +94,12 @@ function renderMerchantList() {
       <span style="flex:1"><strong>${escapeHtml(m.name)}</strong>
         <span class="status-pill" style="font-size:0.7rem;margin-left:0.5rem">${escapeHtml(m.category)}</span>
       </span>
-      <span class="muted" style="font-size:0.8rem">${m.type === "card_switcher" ? "Card management" : "Shopping"}</span>
+      <span class="muted" style="font-size:0.8rem">${m.type === "card_switcher" ? "Card management" : "Order history"}</span>
       <button type="button" class="button" style="padding:0.3rem 0.75rem;font-size:0.85rem"
         data-merchant-id="${escapeHtml(String(m.id))}"
         data-merchant-name="${escapeHtml(m.name)}"
         data-merchant-type="${escapeHtml(m.type)}">
-        Link →
+        Connect
       </button>
     </div>
   `).join("");
@@ -107,20 +107,19 @@ function renderMerchantList() {
   container.querySelectorAll("[data-merchant-id]").forEach(btn => {
     btn.addEventListener("click", () => openKnotSDK({
       merchantId: Number(btn.dataset.merchantId),
-      merchantName: btn.dataset.merchantName,
-      merchantType: btn.dataset.merchantType
+      merchantName: btn.dataset.merchantName
     }));
   });
 }
 
-async function openKnotSDK({ merchantId, merchantName, merchantType }) {
+async function openKnotSDK({ merchantId, merchantName }) {
   const hint = document.getElementById("knot-hint");
-  hint.textContent = `Opening Knot for ${merchantName}…`;
+  hint.textContent = `Opening Knot for ${merchantName} order history...`;
 
   try {
     const init = await request("/api/knot/session", {
       method: "POST",
-      body: JSON.stringify({ merchantId })
+      body: JSON.stringify({ merchantId, purpose: "order_history" })
     });
 
     const KnotapiJS = window.KnotapiJS?.default || window.KnotapiJS;
@@ -140,7 +139,7 @@ async function openKnotSDK({ merchantId, merchantName, merchantType }) {
       useSearch: init.sessionType !== "card_switcher",
       locale: "en-US",
       onSuccess: () => {
-        hint.textContent = `${merchantName} account linked!`;
+        hint.textContent = `${merchantName} order history connected!`;
         loadKnotMerchants();
       },
       onError: (code, desc) => {

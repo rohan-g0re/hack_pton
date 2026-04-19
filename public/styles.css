@@ -856,18 +856,17 @@ select:focus {
 .cam-shell {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 28px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  min-height: 100vh;
+  gap: 8px;
 }
 
 .device-status-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 44px;
 }
 
 .device-identity {
@@ -894,13 +893,12 @@ select:focus {
 
 .camera-preview-block {
   background: #0f1f1b;
-  border-radius: 22px;
-  padding: 24px;
+  border-radius: 14px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  min-height: 560px;
-  flex: 1;
+  gap: 8px;
+  min-height: 170px;
 }
 
 .video-top-bar {
@@ -918,7 +916,7 @@ select:focus {
 
 .camera-preview {
   flex: 1;
-  min-height: 280px;
+  min-height: 85px;
   background: rgba(255, 255, 255, 0.04);
   border-radius: 14px;
   object-fit: cover;
@@ -936,10 +934,10 @@ select:focus {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.75);
-  border-radius: 10px;
-  padding: 14px;
-  min-height: 100px;
-  max-height: 160px;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-height: 36px;
+  max-height: 60px;
   overflow: auto;
   font-size: 0.82rem;
   line-height: 1.5;
@@ -956,12 +954,12 @@ select:focus {
 
 .controls-tray {
   display: flex;
-  gap: 16px;
-  height: 220px;
+  gap: 10px;
+  height: 160px;
 }
 
 .setup-panel {
-  width: 330px;
+  width: 200px;
   flex-shrink: 0;
 }
 
@@ -970,7 +968,7 @@ select:focus {
 }
 
 .server-panel {
-  width: 360px;
+  width: 200px;
   flex-shrink: 0;
   background: var(--accent-soft);
   border-color: #b7e2d2;

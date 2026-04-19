@@ -56,9 +56,17 @@ export async function listShoppingMerchants({ search } = {}) {
 
 // ── Sessions ──────────────────────────────────────────────────────────────────
 
-export async function createKnotSession({ externalUserId, merchantId, patientId }) {
+function sessionFlow(sessionType) {
+  if (sessionType === "vault") return "payment_vault";
+  if (sessionType === "transaction_link") return "order_history";
+  return "shopping_link";
+}
+
+export async function createKnotSession({ externalUserId, merchantId, patientId, purpose }) {
   const merchant = Object.values(MERCHANTS).find(m => m.id === Number(merchantId));
-  const sessionType = merchant?.type === "card_switcher" ? "vault" : "link";
+  const sessionType = purpose === "order_history"
+    ? "transaction_link"
+    : merchant?.type === "card_switcher" ? "vault" : "link";
 
   // merchant_ids is NOT a valid session/create field — merchant is passed only via SDK open()
   const result = await knotRequest("/session/create", {
@@ -66,7 +74,7 @@ export async function createKnotSession({ externalUserId, merchantId, patientId 
     external_user_id: externalUserId,
     metadata: {
       patient_id: String(patientId),
-      flow: sessionType === "vault" ? "payment_vault" : "shopping_link"
+      flow: sessionFlow(sessionType)
     }
   });
   return { session: result.session, sessionType };
