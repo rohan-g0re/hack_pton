@@ -7,9 +7,12 @@
     "start": "node server.mjs",
     "test": "node --test tests/app.test.mjs tests/gemini-pantry.test.mjs tests/gemini-medicine.test.mjs tests/knot-checkout.test.mjs tests/notifier.test.mjs tests/schema.test.mjs tests/worker-orchestration.test.mjs",
     "worker": "node services/worker/index.mjs",
-    "notifier": "node services/notifier/server.mjs"
+    "notifier": "node services/notifier/server.mjs",
+    "seed:supabase": "node scripts/seed-supabase.mjs"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.750.0",
+    "@aws-sdk/s3-request-presigner": "^3.750.0",
     "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.49.1"
   }

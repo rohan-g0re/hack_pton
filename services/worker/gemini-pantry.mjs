@@ -1,6 +1,6 @@
-import { getSeedScenes } from "../../src/demo-data.mjs";
 import { buildLowStockItems, proposalSignature } from "./pantry-analysis.mjs";
 import { readPrompt, callGeminiVisionJson } from "./gemini-client.mjs";
+import { fetchImageBytes } from "./s3-fetch.mjs";
 
 function mapInventoryRow(row) {
   return {
@@ -100,49 +100,33 @@ export async function processPantrySnapshot(client, snapshotRow, cameraRow) {
 
   const inventory = (inventoryRes.data || []).map(mapInventoryRow);
 
-  let scene;
-  let detectedItems = [];
-  let confidence = 0.9;
-  let uncertainty = false;
-  let rawGemini = null;
-
-  if (snapshotRow.scene_id) {
-    scene = getSeedScenes().pantry.find((s) => s.id === snapshotRow.scene_id);
-    if (!scene) {
-      throw new Error(`Unknown pantry scene: ${snapshotRow.scene_id}`);
-    }
-    detectedItems = scene.items.map((item) => ({
-      name: item.name,
-      quantity: item.quantity,
-      bbox: [0, 0, 1, 1]
-    }));
-    confidence = scene.confidence;
-    uncertainty = Boolean(scene.uncertainty);
-  } else if (snapshotRow.image_url && process.env.GEMINI_API_KEY) {
-    const promptBase = readPrompt("pantry-prompt.md");
-    const prompt = `${promptBase}\n\nInventory JSON:\n${JSON.stringify(
-      inventory.map((i) => ({ name: i.name, targetQuantity: i.targetQuantity, threshold: i.lowStockThreshold })),
-      null,
-      2
-    )}`;
-
-    const imageResp = await fetch(snapshotRow.image_url, { signal: AbortSignal.timeout(15_000) });
-    const buf = Buffer.from(await imageResp.arrayBuffer());
-    rawGemini = await callGeminiVisionJson({
-      prompt,
-      imageBase64: buf.toString("base64")
-    });
-    detectedItems = rawGemini.items || [];
-    confidence = Number(rawGemini.confidence ?? 0.8);
-    uncertainty = Boolean(rawGemini.uncertainty);
-    scene = {
-      items: detectedItems.map((i) => ({ name: i.name, quantity: i.quantity })),
-      confidence,
-      uncertainty
-    };
-  } else {
-    throw new Error("Pantry snapshot missing scene_id and GEMINI_API_KEY/image_url for processing.");
+  if (!snapshotRow.image_url) {
+    throw new Error("Pantry snapshot missing image_url.");
   }
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error("GEMINI_API_KEY is required for pantry processing.");
+  }
+
+  const promptBase = readPrompt("pantry-prompt.md");
+  const prompt = `${promptBase}\n\nInventory JSON:\n${JSON.stringify(
+    inventory.map((i) => ({ name: i.name, targetQuantity: i.targetQuantity, threshold: i.lowStockThreshold })),
+    null,
+    2
+  )}`;
+
+  const buf = await fetchImageBytes(snapshotRow.image_url);
+  const rawGemini = await callGeminiVisionJson({
+    prompt,
+    imageBase64: buf.toString("base64")
+  });
+  const detectedItems = rawGemini.items || [];
+  const confidence = Number(rawGemini.confidence ?? 0.8);
+  const uncertainty = Boolean(rawGemini.uncertainty);
+  const scene = {
+    items: detectedItems.map((i) => ({ name: i.name, quantity: i.quantity })),
+    confidence,
+    uncertainty
+  };
 
   const lowItems = buildLowStockItems(inventory, scene);
 

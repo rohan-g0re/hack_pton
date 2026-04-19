@@ -2,6 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createApp } from "../src/app.mjs";
 
+// Integration tests expect in-memory DemoStore only (not Supabase).
+delete process.env.SUPABASE_URL;
+delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+delete process.env.SUPABASE_ANON_KEY;
+
 async function withServer(run) {
   const { server } = createApp();
   await new Promise((resolve) => server.listen(0, resolve));

@@ -1,10 +1,12 @@
 ---
 title: "AWS Deployment, Infrastructure & Directory Structure Plan"
 type: feat
-status: active
+status: superseded
 date: 2026-04-18
 origin: docs/product_idea.md
 ---
+
+> **Superseded by** [2026-04-18-006-feat-aws-deployment-v2-plan.md](2026-04-18-006-feat-aws-deployment-v2-plan.md) (two Ubuntu EC2s, no macOS instance).
 
 # AWS Deployment, Infrastructure & Directory Structure Plan
 

@@ -40,7 +40,7 @@
           </div>
           <video id="video-preview" autoplay muted playsinline class="camera-preview"></video>
           <p class="muted">
-            If the browser blocks camera access, demo mode still works using scene presets below.
+            Camera access requires HTTPS. Open this page at <strong>https://okaytoday.health</strong>.
           </p>
         </section>
 
@@ -50,11 +50,6 @@
             <span id="auto-badge" class="status-pill">Auto off</span>
           </div>
           <p class="muted">Auto-capture sends a snapshot every 10 seconds after registration.</p>
-          <label>
-            Demo scene override
-            <select id="scene-select"></select>
-          </label>
-          <p id="scene-description" class="muted"></p>
           <div class="camera-actions">
             <button id="send-snapshot" type="button" class="button">Send snapshot now</button>
             <button id="toggle-auto" type="button" class="button button-secondary">Start 10s auto mode</button>

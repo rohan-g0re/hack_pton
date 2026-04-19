@@ -47,15 +47,6 @@ async function checkBound() {
   }
 }
 
-document.getElementById("skip-bind").addEventListener("click", async () => {
-  await request("/api/cameras/bind-skip", {
-    method: "POST",
-    body: JSON.stringify({ role })
-  });
-  statusEl.textContent = "Status: Bound (demo). Redirecting…";
-  window.location.href = `/camera/${role}`;
-});
-
 requestNewCode().catch((error) => {
   codeEl.textContent = "ERROR";
   statusEl.textContent = `Status: ${error.message}`;

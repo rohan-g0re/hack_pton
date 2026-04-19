@@ -1,6 +1,6 @@
-import { getSeedScenes } from "../../src/demo-data.mjs";
 import { prescriptionsDueNow, adherenceFromScene } from "./medicine-analysis.mjs";
 import { readPrompt, callGeminiVisionJson } from "./gemini-client.mjs";
+import { fetchImageBytes } from "./s3-fetch.mjs";
 
 async function notifyPhoton(client, { caretakerPhone, message, eventId }) {
   const base = process.env.PHOTON_NOTIFY_URL || "http://127.0.0.1:3040";
@@ -43,31 +43,25 @@ export async function processMedicineSnapshot(client, snapshotRow, cameraRow, ca
   const prescriptions = rxRes.data || [];
   const dueEntries = prescriptionsDueNow(prescriptions, capturedAt);
 
-  let scene;
-  let rawGemini = null;
-
-  if (snapshotRow.scene_id) {
-    scene = getSeedScenes().medicine.find((s) => s.id === snapshotRow.scene_id);
-    if (!scene) {
-      throw new Error(`Unknown medicine scene: ${snapshotRow.scene_id}`);
-    }
-  } else if (snapshotRow.image_url && process.env.GEMINI_API_KEY) {
-    const promptBase = readPrompt("medicine-prompt.md");
-    const prompt = `${promptBase}\n\nPrescriptions JSON:\n${JSON.stringify(prescriptions, null, 2)}`;
-    const imageResp = await fetch(snapshotRow.image_url, { signal: AbortSignal.timeout(15_000) });
-    const buf = Buffer.from(await imageResp.arrayBuffer());
-    rawGemini = await callGeminiVisionJson({
-      prompt,
-      imageBase64: buf.toString("base64")
-    });
-    scene = {
-      medsTaken: rawGemini.medsTaken || [],
-      confidence: Number(rawGemini.confidence ?? 0.8),
-      uncertainty: Boolean(rawGemini.uncertainty)
-    };
-  } else {
-    throw new Error("Medicine snapshot missing scene_id and GEMINI_API_KEY/image_url for processing.");
+  if (!snapshotRow.image_url) {
+    throw new Error("Medicine snapshot missing image_url.");
   }
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error("GEMINI_API_KEY is required for medicine processing.");
+  }
+
+  const promptBase = readPrompt("medicine-prompt.md");
+  const prompt = `${promptBase}\n\nPrescriptions JSON:\n${JSON.stringify(prescriptions, null, 2)}`;
+  const buf = await fetchImageBytes(snapshotRow.image_url);
+  const rawGemini = await callGeminiVisionJson({
+    prompt,
+    imageBase64: buf.toString("base64")
+  });
+  const scene = {
+    medsTaken: rawGemini.medsTaken || [],
+    confidence: Number(rawGemini.confidence ?? 0.8),
+    uncertainty: Boolean(rawGemini.uncertainty)
+  };
 
   const outcome = adherenceFromScene(scene, dueEntries);
 

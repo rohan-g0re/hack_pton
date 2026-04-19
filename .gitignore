@@ -1,11 +1,27 @@
+# ============================================================================
+# Project gitignore
+# This app uses local env files for Supabase, AWS S3/EC2, Gemini, Knot, and
+# Photon credentials. Keep real credentials and generated deployment state out
+# of Git; commit only sanitized examples such as *.env.example.
+# ============================================================================
+
 # --- Dependencies ---
 node_modules/
 
-# --- Package manager caches ---
+# --- Package manager caches / local auth ---
+.npm/
 .npm-cache/
 .pnpm-store/
 .yarn/
 .pnp.*
+.npmrc
+.npmrc.*
+!.npmrc.example
+.pnpmrc
+.pnpmrc.*
+!.pnpmrc.example
+.yarnrc
+.yarnrc.yml
 
 # --- Build / output ---
 dist/
@@ -14,13 +30,171 @@ out/
 .next/
 .nuxt/
 .output/
+.svelte-kit/
 coverage/
+.nyc_output/
 *.tsbuildinfo
 
-# --- Environment & secrets ---
+# --- Environment files and app credentials ---
 .env
 .env.*
+*.env
+*.env.*
 !.env.example
+!.env.*.example
+!*.env.example
+!*.env.*.example
+.envrc
+.envrc.*
+!.envrc.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+*.local
+*.local.*
+!*.local.example
+!*.local.*.example
+local.settings.json
+settings.local.json
+config/local.*
+config/*.local.*
+
+# Repo-specific generated env files. These may contain EC2 hostnames, SSH key
+# paths, Supabase service-role keys, AWS keys, Gemini keys, Knot secrets, and
+# Photon secrets.
+apps/*.env
+scripts/.deploy.env
+**/.deploy.env
+deploy.env
+.deploy.env
+deploy.local.*
+
+# One-off deployment diagnostics often include live EC2 IPs, SSH targets,
+# local paths, and copied environment details.
+scripts/_*.sh
+docs/plans/*status*.md
+
+# --- Private keys, certificates, and signing material ---
+*.pem
+*.key
+*.key.*
+*.p8
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+*.cer
+*.crt
+*.csr
+*.der
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+*.ppk
+
+# --- Cloud/provider credential files ---
+.aws/
+.gcloud/
+.azure/
+.config/gcloud/
+.kube/
+kubeconfig
+kubeconfig.*
+*.kubeconfig
+.docker/config.json
+.netrc
+_netrc
+.pgpass
+pgpass.conf
+.my.cnf
+.sentryclirc
+sentry.properties
+.runtimeconfig.json
+credentials
+credentials.*
+*credentials*.json
+*credential*.json
+*service-account*.json
+*-service-account.json
+google-credentials.json
+application_default_credentials.json
+firebase-service-account*.json
+*.firebase-adminsdk.json
+accessTokens.json
+azureProfile.json
+
+# --- Secret/key material by name ---
+secrets/
+secret/
+.secrets/
+.secret/
+secrets.*
+secret.*
+*.secret
+*.secrets
+*.token
+*.tokens
+*.apikey
+*.api-key
+
+# --- Infrastructure and deployment state ---
+infra/.instances.json
+infra/**/*.tfstate
+infra/**/*.tfstate.*
+.terraform/
+**/.terraform/
+terraform.tfstate
+terraform.tfstate.*
+*.tfvars
+*.tfvars.json
+*.tfplan
+crash.log
+cdk.out/
+.serverless/
+.sam/
+.wrangler/
+pm2.log
+dump.pm2
+ecosystem*.local.*
+docker-compose*.local.yml
+compose*.local.yml
+
+# --- Supabase local state ---
+.supabase/
+supabase/.branches/
+supabase/.cache/
+supabase/.temp/
+supabase/.env
+supabase/.env.*
+
+# --- Local databases, exports, backups, and PII-prone data ---
+*.sqlite
+*.sqlite3
+*.db
+*.db-*
+*.dump
+*.dump.sql
+*.backup
+*.backup.sql
+*.bak
+backups/
+exports/
+local-data/
+data/local/
+
+# Camera snapshots/uploads can include private home or health data.
+uploads/
+snapshots/
+captures/
+recordings/
+public/uploads/
+public/snapshots/
+tmp/
+temp/
+.tmp/
+.temp/
 
 # --- Logs & runtime ---
 *.log
@@ -34,7 +208,16 @@ logs/
 *.seed
 *.pid.lock
 
-# --- OS ---
+# --- Test and browser artifacts ---
+test-results/
+playwright-report/
+.playwright-mcp/
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# --- OS files ---
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -43,32 +226,32 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
-# --- Editor & IDE (local) ---
+# --- Editor and IDE local state ---
 .idea/
 *.swp
 *.swo
 *~
 
-# VS Code — keep shared settings optional; ignore local
+# VS Code: settings, launch configs, and tasks often contain env values.
 .vscode/*
 !.vscode/extensions.json
-!.vscode/settings.json
-!.vscode/launch.json
-!.vscode/tasks.json
+!.vscode/*.example
+!.vscode/*.example.json
 
-# Cursor — hook/agent local state (never commit)
+# Cursor / agent local state and MCP config may contain secrets. Commit
+# reusable project rules only if added deliberately.
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
 .cursor/hooks/state/
-
-# --- Tooling / workspace artifacts ---
 .compound-engineering/
+.codex/
+.claude/settings*.json
+.claude/settings.local.json
+.claude/**/settings.local.json
+!.claude/settings.example.json
+
+# --- Hosting/tool workspace artifacts ---
 .turbo/
 .vercel/
 .netlify/
-
-# --- Test / misc ---
-.cache/
-.parcel-cache/
-.eslintcache
-.stylelintcache
-*.pem
-.playwright-mcp/

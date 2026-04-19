@@ -2,7 +2,9 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import { DemoStore } from "./store.mjs";
+import { SupabaseStore } from "./supabase-store.mjs";
+import { createSupabaseServerClient } from "./supabase-server.mjs";
+import { createSnapshotPutUrl } from "./s3-presign.mjs";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const publicDir = path.resolve(__dirname, "../public");
@@ -97,92 +99,132 @@ function sendStatic(requestPath, response) {
   });
 }
 
+/** Await store methods uniformly. */
+async function invokeStore(store, method, ...args) {
+  const fn = store[method];
+  if (typeof fn !== "function") {
+    throw new Error(`Unknown store method: ${method}`);
+  }
+  const out = fn.apply(store, args);
+  return out && typeof out.then === "function" ? await out : out;
+}
+
 export function createApp() {
-  const store = new DemoStore();
+  const sb = createSupabaseServerClient();
+  if (!sb) {
+    throw new Error(
+      "SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set. Demo/in-memory store has been removed."
+    );
+  }
+  const store = new SupabaseStore(sb);
 
   const server = http.createServer(async (request, response) => {
     const parsed = new URL(request.url, "http://localhost");
     const { pathname } = parsed;
 
     try {
+      if (request.method === "GET" && pathname === "/healthz") {
+        json(response, 200, { ok: true });
+        return;
+      }
+
       if (request.method === "GET" && pathname === "/api/state") {
-        json(response, 200, store.listState());
+        json(response, 200, await invokeStore(store, "listState"));
         return;
       }
 
       if (request.method === "POST" && pathname === "/api/demo/reset") {
-        store.reset();
-        json(response, 200, store.listState());
+        json(response, 200, await invokeStore(store, "reset"));
         return;
       }
 
       if (request.method === "POST" && pathname === "/api/profile") {
         const body = await readBody(request);
-        json(response, 200, store.updateProfile(body));
+        json(response, 200, await invokeStore(store, "updateProfile", body));
         return;
       }
 
       if (request.method === "POST" && pathname === "/api/inventory") {
         const body = await readBody(request);
-        json(response, 200, store.replaceInventory(body.items || []));
+        json(response, 200, await invokeStore(store, "replaceInventory", body.items || []));
         return;
       }
 
       if (request.method === "POST" && pathname === "/api/prescriptions") {
         const body = await readBody(request);
-        json(response, 200, store.replacePrescriptions(body.items || []));
+        json(response, 200, await invokeStore(store, "replacePrescriptions", body.items || []));
         return;
       }
 
       const registerMatch = pathname.match(/^\/api\/cameras\/(pantry|medicine)\/register$/);
       if (request.method === "POST" && registerMatch) {
         const body = await readBody(request);
-        json(response, 200, store.registerCamera(registerMatch[1], body));
+        json(response, 200, await invokeStore(store, "registerCamera", registerMatch[1], body));
+        return;
+      }
+
+      const snapshotUrlMatch = pathname.match(/^\/api\/cameras\/(pantry|medicine)\/snapshot-url$/);
+      if (request.method === "POST" && snapshotUrlMatch && sb) {
+        const bucket = process.env.AWS_S3_BUCKET;
+        if (!bucket) {
+          json(response, 503, { error: "AWS_S3_BUCKET not configured." });
+          return;
+        }
+        const camera = await store.getCameraByRole(snapshotUrlMatch[1]);
+        if (!camera) {
+          json(response, 400, { error: "Camera not found for role." });
+          return;
+        }
+        const urls = await createSnapshotPutUrl({
+          bucket,
+          region: process.env.AWS_REGION,
+          role: snapshotUrlMatch[1],
+          cameraId: camera.id
+        });
+        json(response, 200, urls);
+        return;
+      }
+
+      if (request.method === "POST" && snapshotUrlMatch && !sb) {
+        json(response, 503, { error: "Snapshot upload requires Supabase + S3 configuration." });
         return;
       }
 
       const snapshotMatch = pathname.match(/^\/api\/cameras\/(pantry|medicine)\/snapshot$/);
       if (request.method === "POST" && snapshotMatch) {
         const body = await readBody(request);
-        json(response, 200, store.recordSnapshot(snapshotMatch[1], body));
+        json(response, 200, await invokeStore(store, "recordSnapshot", snapshotMatch[1], body));
         return;
       }
 
       const approveMatch = pathname.match(/^\/api\/proposals\/([^/]+)\/approve$/);
       if (request.method === "POST" && approveMatch) {
-        json(response, 200, store.approveProposal(approveMatch[1]));
+        json(response, 200, await invokeStore(store, "approveProposal", approveMatch[1]));
         return;
       }
 
       const rejectMatch = pathname.match(/^\/api\/proposals\/([^/]+)\/reject$/);
       if (request.method === "POST" && rejectMatch) {
-        json(response, 200, store.rejectProposal(rejectMatch[1]));
-        return;
-      }
-
-      if (request.method === "POST" && pathname === "/api/cameras/bind-skip") {
-        const body = await readBody(request);
-        const role = body.role === "medicine" ? "medicine" : "pantry";
-        json(response, 200, store.skipBindForDemo(role, body));
+        json(response, 200, await invokeStore(store, "rejectProposal", rejectMatch[1]));
         return;
       }
 
       if (request.method === "POST" && pathname === "/api/cameras/pair-code") {
         const body = await readBody(request);
         const role = body.role === "medicine" ? "medicine" : "pantry";
-        json(response, 200, store.generatePairingCode(role));
+        json(response, 200, await invokeStore(store, "generatePairingCode", role));
         return;
       }
 
       if (request.method === "POST" && pathname === "/api/cameras/pair") {
         const body = await readBody(request);
-        json(response, 200, store.pairCamera(body.code));
+        json(response, 200, await invokeStore(store, "pairCamera", body.code));
         return;
       }
 
       if (request.method === "POST" && pathname === "/api/payment-card") {
         const body = await readBody(request);
-        json(response, 200, store.updatePaymentCardDemo(body));
+        json(response, 200, await invokeStore(store, "updatePaymentCardDemo", body));
         return;
       }
 

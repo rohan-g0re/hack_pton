@@ -6,15 +6,12 @@ const role = pathRole;
 const title = document.getElementById("camera-title");
 const subtitle = document.getElementById("camera-subtitle");
 const badge = document.getElementById("camera-role-badge");
-const select = document.getElementById("scene-select");
-const description = document.getElementById("scene-description");
 const result = document.getElementById("snapshot-result");
 const registerResult = document.getElementById("register-result");
 const snapCountEl = document.getElementById("snap-count");
 const lastSentEl = document.getElementById("last-sent");
 const autoBadge = document.getElementById("auto-badge");
 
-let scenes = [];
 let autoTimer = null;
 let snapshotsSent = 0;
 
@@ -25,18 +22,6 @@ subtitle.textContent =
     : "Capturing snapshots every 10 seconds. Point at the medicine table.";
 badge.textContent = role;
 
-function renderSceneDescription() {
-  const scene = scenes.find((entry) => entry.id === select.value);
-  description.textContent = scene?.description || "";
-}
-
-async function loadScenes() {
-  const state = await request("/api/state");
-  scenes = state.scenes[role];
-  select.innerHTML = scenes.map((scene) => `<option value="${scene.id}">${scene.label}</option>`).join("");
-  renderSceneDescription();
-}
-
 async function registerCamera(deviceName) {
   const payload = await request(`/api/cameras/${role}/register`, {
     method: "POST",
@@ -46,13 +31,36 @@ async function registerCamera(deviceName) {
 }
 
 async function sendSnapshot() {
+  const capturedAt = new Date().toISOString();
+  const video = document.getElementById("video-preview");
+
+  if (!video?.videoWidth) {
+    result.textContent = "Camera not ready. Allow camera access and wait for the preview to load.";
+    return;
+  }
+
+  const prep = await request(`/api/cameras/${role}/snapshot-url`, { method: "POST", body: "{}" });
+
+  const canvas = document.createElement("canvas");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.85));
+
+  const putRes = await fetch(prep.uploadUrl, {
+    method: "PUT",
+    headers: { "Content-Type": "image/jpeg" },
+    body: blob
+  });
+  if (!putRes.ok) {
+    throw new Error(`S3 upload failed: ${putRes.status}`);
+  }
+
   const payload = await request(`/api/cameras/${role}/snapshot`, {
     method: "POST",
-    body: JSON.stringify({
-      sceneId: select.value,
-      capturedAt: new Date().toISOString()
-    })
+    body: JSON.stringify({ imageUrl: prep.imageUrl, capturedAt })
   });
+
   snapshotsSent += 1;
   snapCountEl.textContent = `Snapshots sent: ${snapshotsSent}`;
   lastSentEl.textContent = `Last sent: ${new Date().toLocaleTimeString()}`;
@@ -64,7 +72,7 @@ async function startPreview() {
   if (!navigator.mediaDevices?.getUserMedia) {
     const note = document.createElement("p");
     note.className = "muted";
-    note.textContent = "Camera preview unavailable in this browser.";
+    note.textContent = "Camera preview unavailable in this browser. Make sure you are on HTTPS.";
     video.replaceWith(note);
     return;
   }
@@ -87,7 +95,11 @@ document.getElementById("register-form").addEventListener("submit", async (event
 });
 
 document.getElementById("send-snapshot").addEventListener("click", async () => {
-  await sendSnapshot();
+  try {
+    await sendSnapshot();
+  } catch (err) {
+    result.textContent = `Error: ${err.message}`;
+  }
 });
 
 document.getElementById("toggle-auto").addEventListener("click", async (event) => {
@@ -105,9 +117,4 @@ document.getElementById("toggle-auto").addEventListener("click", async (event) =
   autoBadge.textContent = "Active · every 10s";
 });
 
-select.addEventListener("change", renderSceneDescription);
-
-loadScenes().catch((error) => {
-  result.textContent = error.message;
-});
 startPreview();

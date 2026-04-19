@@ -4,8 +4,11 @@ import { processPantrySnapshot } from "./gemini-pantry.mjs";
 import { processMedicineSnapshot } from "./gemini-medicine.mjs";
 import { findApprovedProposalsPendingCheckout, runKnotCheckoutForProposal } from "./knot-checkout.mjs";
 import { startInterval, sleep } from "./queue.mjs";
+import { GeminiRateLimitError } from "./gemini-client.mjs";
 
 const POLL_MS = Number(process.env.WORKER_POLL_MS || 2500);
+// Track snapshots that hit a rate limit so we skip them until the cooldown expires
+const snapshotCooldown = new Map();
 const HEALTH_PORT = Number(process.env.WORKER_HEALTH_PORT || 3031);
 
 function healthServer() {
@@ -53,7 +56,7 @@ async function loadCaretakerForPatient(client, patientId) {
 async function processPantry(client) {
   const { data, error } = await client
     .from("snapshots")
-    .select("id, camera_id, scene_id, image_url, captured_at, processed")
+    .select("id, camera_id, image_url, captured_at, processed")
     .eq("processed", false);
 
   if (error) {
@@ -61,12 +64,21 @@ async function processPantry(client) {
   }
 
   for (const snap of data || []) {
-    const camera = await loadCamera(client, snap.camera_id);
-    if (!camera || camera.role !== "pantry") {
-      continue;
-    }
+    const coolUntil = snapshotCooldown.get(snap.id);
+    if (coolUntil && Date.now() < coolUntil) continue;
 
-    await processPantrySnapshot(client, snap, camera);
+    const camera = await loadCamera(client, snap.camera_id);
+    if (!camera || camera.role !== "pantry") continue;
+
+    try {
+      await processPantrySnapshot(client, snap, camera);
+    } catch (err) {
+      if (err instanceof GeminiRateLimitError) {
+        snapshotCooldown.set(snap.id, Date.now() + err.retryAfterMs);
+        throw err; // propagate so startInterval backs off the whole loop
+      }
+      throw err;
+    }
     await sleep(50);
   }
 }
@@ -74,7 +86,7 @@ async function processPantry(client) {
 async function processMedicine(client) {
   const { data, error } = await client
     .from("snapshots")
-    .select("id, camera_id, scene_id, image_url, captured_at, processed")
+    .select("id, camera_id, image_url, captured_at, processed")
     .eq("processed", false);
 
   if (error) {
@@ -82,13 +94,22 @@ async function processMedicine(client) {
   }
 
   for (const snap of data || []) {
+    const coolUntil = snapshotCooldown.get(snap.id);
+    if (coolUntil && Date.now() < coolUntil) continue;
+
     const camera = await loadCamera(client, snap.camera_id);
-    if (!camera || camera.role !== "medicine") {
-      continue;
-    }
+    if (!camera || camera.role !== "medicine") continue;
 
     const caretaker = await loadCaretakerForPatient(client, camera.patient_id);
-    await processMedicineSnapshot(client, snap, camera, caretaker);
+    try {
+      await processMedicineSnapshot(client, snap, camera, caretaker);
+    } catch (err) {
+      if (err instanceof GeminiRateLimitError) {
+        snapshotCooldown.set(snap.id, Date.now() + err.retryAfterMs);
+        throw err;
+      }
+      throw err;
+    }
     await sleep(50);
   }
 }
