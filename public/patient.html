@@ -40,14 +40,26 @@
 
       <section class="panel wide">
         <div class="panel-heading">
+          <h2>Grocery ordering — Knot</h2>
+        </div>
+        <p class="muted section-lead">Link merchant accounts so Knot can automatically place orders and manage subscriptions.</p>
+        <div id="knot-merchant-list" class="stack gap-sm">
+          <p class="muted">Loading merchants…</p>
+        </div>
+        <p class="form-hint" id="knot-hint"></p>
+      </section>
+
+      <section class="panel wide">
+        <div class="panel-heading">
           <h2>Payment card</h2>
         </div>
-        <p class="muted section-lead">Card used for grocery orders via Knot.</p>
+        <p class="muted section-lead">Card on file for Knot grocery orders.</p>
         <div id="card-summary" class="card knot-placeholder"></div>
         <button type="button" class="button" id="update-card">Update Card</button>
       </section>
     </div>
 
+    <script src="https://unpkg.com/knotapi-js@next"></script>
     <script type="module" src="/patient.js"></script>
   </body>
 </html>

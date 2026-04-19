@@ -2,7 +2,7 @@ import http from "node:http";
 import { createSupabaseServerClient } from "../../src/supabase-server.mjs";
 import { processPantrySnapshot } from "./gemini-pantry.mjs";
 import { processMedicineSnapshot } from "./gemini-medicine.mjs";
-import { findApprovedProposalsPendingCheckout, runKnotCheckoutForProposal } from "./knot-checkout.mjs";
+import { findApprovedProposalsPendingCheckout, requestCartSyncForProposal } from "./knot-checkout.mjs";
 import { startInterval, sleep } from "./queue.mjs";
 import { GeminiRateLimitError } from "./gemini-client.mjs";
 
@@ -117,7 +117,7 @@ async function processMedicine(client) {
 async function processCheckout(client) {
   const pending = await findApprovedProposalsPendingCheckout(client);
   for (const proposal of pending) {
-    await runKnotCheckoutForProposal(client, proposal.id);
+    await requestCartSyncForProposal(client, proposal.id);
     await sleep(50);
   }
 }

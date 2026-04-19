@@ -107,18 +107,22 @@ export async function processMedicineSnapshot(client, snapshotRow, cameraRow, ca
   // Determine overall adherence
   let adherence, severity, title, message;
 
+  const missedNames = calls
+    .filter(c => (c.function || c.name) === "medication_not_taken")
+    .map(c => Array.isArray(c.args) ? c.args[0] : c.args?.name)
+    .filter(Boolean)
+    .join(", ");
+
   if (notTakenCount > 0 && takenCount === 0) {
     adherence = "missed";
     severity = "critical";
     title = "Medication not taken";
-    const missed = calls.filter(c => c.function === "medication_not_taken").map(c => c.args[0]).join(", ");
-    message = `Gemini detected ${missed} has not been taken. Caretaker notified.`;
+    message = `Gemini detected ${missedNames || "medication"} has not been taken. Caretaker notified.`;
   } else if (notTakenCount > 0) {
     adherence = "partial";
     severity = "warning";
     title = "Partial medication adherence";
-    const missed = calls.filter(c => c.function === "medication_not_taken").map(c => c.args[0]).join(", ");
-    message = `Some medications taken, but ${missed} appears not taken yet.`;
+    message = `Some medications taken, but ${missedNames || "some"} appears not taken yet.`;
   } else if (uncertainCount > 0 && takenCount === 0) {
     adherence = "uncertain";
     severity = "warning";
